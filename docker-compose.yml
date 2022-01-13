@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    container_name: pg_metaitems
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: metaitems_dev
+    # volumes:
+    #     - ./postgres.conf:/etc/postgresql/12/main/postgresql.conf
+    # command: postgres -c config_file=/etc/postgresql/12/main/postgresql.conf
+    restart: always
+
+# volumes:
+#   data01:
+#     driver: local

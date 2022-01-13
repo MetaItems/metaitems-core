@@ -1,0 +1,57 @@
+<div class="hero min-h-screen bg-base-200">
+  <div class="flex-col justify-center hero-content lg:flex-row">
+     <div class="text-center lg:text-left">
+      <h1 class="mb-5 text-5xl font-bold">
+           Please Login
+          </h1> 
+      <p class="mb-5">
+            Thank you for your support.
+      </p>
+    </div> 
+    
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+      <%= if @error_message do %>
+        <div class="alert alert-danger">
+          <p><%= @error_message %></p>
+        </div>
+      <% end %>
+      
+      
+      <div class="card-body">
+        <div class="form-control">
+          <label class="label">
+            <%= label f, :email, class: "label-text" %>
+          </label> 
+          <%= email_input f, :email, required: true, placeholder: "email", class: "input input-bordered" %>
+        </div> 
+        <div class="form-control">
+          <label class="label">
+            <%= label f, :password, class: "label-text" %>
+          </label> 
+           <%= password_input f, :password, required: true, placeholder: "password", class: "input input-bordered" %>
+          
+          <%= label f, :remember_me, "Keep me logged in for 60 days" %>
+          <%= checkbox f, :remember_me %>
+          <label class="label">
+            <a href="#" class="label-text-alt">Forgot password?</a>
+          </label>
+        </div> 
+        <div class="form-control mt-6">
+          <%= submit "Log in", class: "btn btn-primary" %>
+          
+        </div>
+      </div>
+      </.form>
+        <p class="justify-center hero-content py-4">
+          <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+          <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
+        </p>
+    </div>
+  </div>
+</div>
+
+
+
+
+

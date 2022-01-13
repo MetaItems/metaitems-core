@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+  <head>
+    <%= render_existing(
+      Phoenix.Controller.view_module(@conn),
+      "meta." <> Phoenix.Controller.view_template(@conn),
+      Map.merge(assigns, %{
+        view_module: Phoenix.Controller.view_module(@conn),
+        view_template: Phoenix.Controller.view_template(@conn)
+      })
+    ) || render MetaitemsWeb.LayoutView, "meta.html", assigns %>
+
+    <%= if Application.get_env(:metaitems, :mix_env) == :dev do %>
+      <script type="module" src="http://localhost:3000/@vite/client"></script>
+      <script defer type="module" src="http://localhost:3000/js/app.js"></script>
+    <% else %>
+      <script defer phx-track-static type="module" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <% end %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <%# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/xt256.min.css" /> %>
+  </head>
+  <body class="bg-base-200">
+    <header class="z-50">
+      <section class="container">
+        <nav>
+          <%= render "_user_menu.html", assigns %>
+        </nav>
+      </section>
+    </header>
+    <%= @inner_content %>
+  </body>
+  <footer class="p-10 footer bg-base-200 text-base-content">
+    <%= render(MetaitemsWeb.PageView, "_footer.html", assigns) %>
+  </footer>
+</html>
