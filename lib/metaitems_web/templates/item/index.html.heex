@@ -1,0 +1,6 @@
+<%= if !@current_user do %>
+  <%= render(MetaitemsWeb.PageView, "index.html", assigns) %>
+<% else %>
+  <h1>Hello user</h1>
+<% end %>
+

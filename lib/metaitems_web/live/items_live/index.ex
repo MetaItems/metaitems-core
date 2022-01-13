@@ -6,7 +6,7 @@ defmodule MetaitemsWeb.ItemsLive.Index do
 
   @impl true
   def render(assigns) do
-    Phoenix.View.render(MetaitemsWeb.PageView, "index.html", assigns)
+    Phoenix.View.render(MetaitemsWeb.ItemView, "index.html", assigns)
   end
 
   @impl true

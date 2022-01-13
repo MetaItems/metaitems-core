@@ -31,7 +31,8 @@ defmodule MetaitemsWeb do
     quote do
       use Phoenix.View,
         root: "lib/metaitems_web/templates",
-        namespace: MetaitemsWeb
+        namespace: MetaitemsWeb,
+        pattern: "**/*"
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -63,6 +64,13 @@ defmodule MetaitemsWeb do
         else
           _any -> {:noreply, socket}
        end
+      end
+
+      @impl true
+      def handle_params(_unsigned_params, uri, socket) do
+        {:noreply,
+          socket
+          |> assign(current_uri_path: URI.parse(uri).path)}
       end
 
     end

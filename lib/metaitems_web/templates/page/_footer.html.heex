@@ -16,7 +16,7 @@
     <div>
       <ul>
         <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-          <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+          <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@socket, :home) %></li>
         <% end %>
      </ul>
       <span class="footer-title">Company</span> 

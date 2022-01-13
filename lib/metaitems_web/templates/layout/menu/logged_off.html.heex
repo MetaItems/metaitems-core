@@ -1,0 +1,41 @@
+<div class="navbar absolute h-16 top-0 inset-x-0 text-neutral-content">
+  <div class="flex-none px-2 mx-2">
+    <span class="text-lg font-bold">
+            Meta Items
+          </span>
+  </div> 
+  <div class="flex-1 px-2 mx-2">
+    <div class="items-stretch hidden lg:flex">
+      
+      <%= live_redirect to: Routes.items_index_path(@conn, :index) do %>
+        <button class="btn btn-ghost btn-sm rounded-btn">
+            Home
+        </button>
+      <% end %>
+      
+      <a class="btn btn-ghost btn-sm rounded-btn">
+              FAQ
+            </a> 
+      <a class="btn btn-ghost btn-sm rounded-btn">
+              Blog
+            </a> 
+      <a class="btn btn-ghost btn-sm rounded-btn">
+              Community
+            </a>
+    </div>
+  </div> 
+  <div class="flex-none">
+    <%= link to: Routes.user_session_path(@conn, :new) do %>
+      <button class="btn btn-md btn-ghost">
+        Login
+      </button>
+    <% end %>
+  </div> 
+  <div class="flex-none">
+      <%= link to: Routes.user_registration_path(@conn, :new) do %>
+      <button class="btn btn-md btn-ghost btn-outline btn-secondary">
+        Register
+      </button>
+    <% end %>
+  </div>
+</div>
