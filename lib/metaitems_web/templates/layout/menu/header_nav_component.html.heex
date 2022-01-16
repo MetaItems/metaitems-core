@@ -35,7 +35,7 @@
   <div class="flex-none">
     <div class="avatar">
       <div class="rounded-full w-10 h-10 m-1">
-        <%= link to: Routes.user_settings_path(@socket, :edit) do %>
+        <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>
           <img src="https://i.pravatar.cc/500?img=32">
         <% end %>
       </div>

@@ -76,9 +76,12 @@ defmodule MetaitemsWeb.Router do
   scope "/", MetaitemsWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
+    # get "/users/settings", UserSettingsController, :edit
+    # put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live "/accounts/edit", UserLive.Settings
+    live "/accounts/password/change", UserLive.PassSettings
   end
 
   scope "/", MetaitemsWeb do

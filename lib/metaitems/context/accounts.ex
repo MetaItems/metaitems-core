@@ -109,6 +109,16 @@ defmodule Metaitems.Context.Accounts do
     User.email_changeset(user, attrs)
   end
 
+  def change_user(user, attrs \\ %{}) do
+    User.registration_changeset(user, attrs, register_user: false)
+  end
+
+  def update_user(user, attrs) do
+    user
+    |> User.registration_changeset(attrs, register_user: false)
+    |> Repo.update()
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
@@ -201,19 +211,20 @@ defmodule Metaitems.Context.Accounts do
 
   """
   def update_user_password(user, password, attrs) do
-    changeset =
+    # changeset =
       user
       |> User.password_changeset(attrs)
       |> User.validate_current_password(password)
+      |> Repo.update()
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
-    |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
-    |> Repo.transaction()
-    |> case do
-      {:ok, %{user: user}} -> {:ok, user}
-      {:error, :user, changeset, _} -> {:error, changeset}
-    end
+    # Ecto.Multi.new()
+    # |> Ecto.Multi.update(:user, changeset)
+    # |> Ecto.Multi.delete_all(:tokens, UserToken.user_and_contexts_query(user, :all))
+    # |> Repo.transaction()
+    # |> case do
+    #   {:ok, %{user: user}} -> {:ok, user}
+    #   {:error, :user, changeset, _} -> {:error, changeset}
+    # end
   end
 
   ## Session

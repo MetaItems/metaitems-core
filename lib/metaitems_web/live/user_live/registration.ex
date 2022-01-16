@@ -1,4 +1,4 @@
-defmodule MetaitemsWeb.Accounts.RegistrationLive do
+defmodule MetaitemsWeb.UserLive.RegistrationLive do
   use MetaitemsWeb, :live_view
 
   alias Metaitems.Context.Accounts
@@ -21,7 +21,6 @@ defmodule MetaitemsWeb.Accounts.RegistrationLive do
       %User{}
       |> User.registration_changeset(user_params)
       |> Map.put(:action, :validate)
-    :timer.sleep(9000)
     {:noreply, socket |> assign(changeset: changeset)}
   end
 

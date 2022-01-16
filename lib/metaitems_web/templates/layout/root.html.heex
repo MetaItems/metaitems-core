@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html data-theme="dark" lang="en">
   <head>
+    <%= live_title_tag assigns[:page_title]  ||  "MetaItems",  suffix:  " · MetaItems"  %>
     <%= render_existing(
       Phoenix.Controller.view_module(@conn),
       "meta." <> Phoenix.Controller.view_template(@conn),

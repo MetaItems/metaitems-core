@@ -18,6 +18,15 @@ defmodule Metaitems.Accounts.User do
     timestamps()
   end
 
+  @spec registration_changeset(
+          {map, map}
+          | %{
+              :__struct__ => atom | %{:__changeset__ => map, optional(any) => any},
+              optional(atom) => any
+            },
+          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any},
+          keyword
+        ) :: Ecto.Changeset.t()
   @doc """
   A user changeset for registration.
 
@@ -38,9 +47,11 @@ defmodule Metaitems.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :username, :avatar_url, :bio, :website, :twitter])
+    |> validate_required([:email])
     |> validate_length(:username, min: 5, max: 40)
     |> validate_format(:username, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")
     |> unique_constraint(:username)
+    |> unsafe_validate_unique(:username, Metaitems.Repo)
     |> validate_email()
     |> validate_password(opts)
   end

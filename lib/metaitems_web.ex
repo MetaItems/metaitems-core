@@ -122,6 +122,7 @@ defmodule MetaitemsWeb do
 
       import MetaitemsWeb.ErrorHelpers
       import MetaitemsWeb.Gettext
+      import MetaitemsWeb.RenderHelpers
       alias MetaitemsWeb.Router.Helpers, as: Routes
     end
   end
