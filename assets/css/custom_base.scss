@@ -1,9 +1,9 @@
 $gradients: () !default;
 $gradients: map-merge((
-  neutral: linear-gradient(135deg, #000000 0%, #2f0036 100%),
-  primary: linear-gradient(135deg, #312ef2 0%,#e52ef2 100%),
-  secondary: linear-gradient(135deg, #e52ef2 0%,#49e39b 100%),
-  accent: linear-gradient(135deg, #49e39b 0%,#171417 100%)
+  neutral: linear-gradient(90deg, #232526 0%, #414345 100%),
+  primary: linear-gradient(90deg, #0f0c29 0%,#302b63 50%, #24243e 100%), // Lawrencium
+  secondary: linear-gradient(90deg, #355C7D 0%,#6C5B7B 50%, #C06C84 100%),
+  accent: linear-gradient(90deg, #49e39b 0%,#171417 100%)
 ), $gradients);
 
 // Gradient backgrounds

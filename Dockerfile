@@ -66,11 +66,11 @@ RUN chown kamisama:kamisama /app
 
 USER kamisama:kamisama
 
-# COPY --from=build --chown=nobody:nobody /app/_build/dev/rel/nalyst ./
-COPY --from=build --chown=kamisama:kamisama /app/_build/prod/rel/nalyst ./
+# COPY --from=build --chown=nobody:nobody /app/_build/dev/rel/metaitems ./
+COPY --from=build --chown=kamisama:kamisama /app/_build/prod/rel/metaitems ./
 
 ENV HOME=/app
 
 ## COPY entrypoint.sh .
 ## CMD ["./entrypoint.sh"]
-CMD ["bin/nalyst", "start"]
+CMD ["bin/metaitems", "start"]

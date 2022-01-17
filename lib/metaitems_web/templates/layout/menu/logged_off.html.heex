@@ -12,30 +12,29 @@
             Home
         </button>
       <% end %>
-      
-      <a class="btn btn-ghost btn-sm rounded-btn">
+      <a href="#roadmap" class="btn btn-ghost btn-sm rounded-btn">
+              Roadmap
+      </a> 
+      <a href="#faq" class="btn btn-ghost btn-sm rounded-btn">
               FAQ
-            </a> 
+      </a> 
       <a class="btn btn-ghost btn-sm rounded-btn">
               Blog
             </a> 
-      <a class="btn btn-ghost btn-sm rounded-btn">
-              Community
-            </a>
     </div>
   </div> 
   <div class="flex-none">
-    <%= link to: Routes.user_session_path(@conn, :new) do %>
+    <a href="https://twitter.com/MetaItems" >
       <button class="btn btn-md btn-ghost">
-        Login
+        Twitter
       </button>
-    <% end %>
+    </a>
   </div> 
   <div class="flex-none">
-      <%= link to: Routes.user_registration_path(@conn, :new) do %>
+     <a href="https://discord.gg/EsgX8xZRgc" >
       <button class="btn btn-md btn-ghost btn-outline btn-secondary">
-        Register
+        Discord
       </button>
-    <% end %>
+   </a>
   </div>
 </div>

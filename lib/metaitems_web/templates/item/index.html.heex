@@ -1,6 +1,10 @@
 <%= if !@current_user do %>
   <%= render(MetaitemsWeb.PageView, "index.html", assigns) %>
 <% else %>
-  
+  <ul>
+    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+      <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@socket, :home) %></li>
+    <% end %>
+  </ul>
 <% end %>
 
