@@ -22,6 +22,7 @@ defmodule MetaitemsWeb.Router do
 
     # get "/", PageController, :index
     live "/", ItemsLive.Index, :index
+    live "/:username", UserLive.Profile
   end
 
   # Other scopes may use custom stacks.
@@ -63,10 +64,10 @@ defmodule MetaitemsWeb.Router do
   scope "/", MetaitemsWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/register", UserRegistrationController, :new
-    post "/register", UserRegistrationController, :create
-    get "/login", UserSessionController, :new
-    post "/login", UserSessionController, :create
+    get "/users/register", UserRegistrationController, :new
+    post "/users/register", UserRegistrationController, :create
+    get "/users/login", UserSessionController, :new
+    post "/users/login", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
@@ -82,6 +83,7 @@ defmodule MetaitemsWeb.Router do
 
     live "/accounts/edit", UserLive.Settings
     live "/accounts/password/change", UserLive.PassSettings
+    live "/accounts/wallet/edit", WalletLive.WalletSettings
   end
 
   scope "/", MetaitemsWeb do

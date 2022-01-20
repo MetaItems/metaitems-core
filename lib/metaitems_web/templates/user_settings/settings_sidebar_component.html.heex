@@ -2,5 +2,6 @@
   <ul>
     <%= live_patch content_tag(:li, "Edit Profile", class: "p-4 #{selected_link?(@current_uri_path,  @settings_path)}"),  to:  @settings_path %>
     <%= live_patch content_tag(:li, "Change Password", class: "p-4 #{selected_link?(@current_uri_path,  @pass_settings_path)}"),  to:  @pass_settings_path %>
+    <%= live_patch content_tag(:li, "Wallets", class: "p-4 #{selected_link?(@current_uri_path,  @wallet_settings_path)}"),  to:  @wallet_settings_path %>
   </ul>
 </div>

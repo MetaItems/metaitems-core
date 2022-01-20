@@ -4,7 +4,7 @@ defmodule MetaitemsWeb.LiveHelpers do
   alias Metaitems.Accounts.User
   alias MetaitemsWeb.UserAuth
 
-  def assign_default(session, socket) do
+  def assign_defaults(session, socket) do
     if connected?(socket), do: MetaitemsWeb.Endpoint.subscribe(UserAuth.pubsub_topic())
 
     socket =

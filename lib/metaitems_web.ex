@@ -53,6 +53,7 @@ defmodule MetaitemsWeb do
       import MetaitemsWeb.LiveHelpers
 
       alias Metaitems.Accounts.User
+      alias Metaitems.Context.Accounts
       @impl true
       def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
        with %User{id: ^id} <- socket.assigns.current_user do
@@ -66,11 +67,24 @@ defmodule MetaitemsWeb do
        end
       end
 
+      @doc """
+      We updated this function for when the username param is present,
+      get the user and assign it along with page title to the socket
+      """
       @impl true
-      def handle_params(_unsigned_params, uri, socket) do
-        {:noreply,
+      def handle_params(params, uri, socket) do
+        if Map.has_key?(params, "username") do
+          %{"username" => username} = params
+          user = Accounts.profile(username)
+          {:noreply,
           socket
-          |> assign(current_uri_path: URI.parse(uri).path)}
+          |> assign(current_uri_path: URI.parse(uri).path)
+          |> assign(user: user, page_title: "(@#{user.username})")}
+        else
+          {:noreply,
+            socket
+            |> assign(current_uri_path: URI.parse(uri).path)}
+        end
       end
 
     end

@@ -15,9 +15,25 @@ defmodule Metaitems.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Metaitems.PubSub},
       # Start the Endpoint (http/https)
-      MetaitemsWeb.Endpoint
+      MetaitemsWeb.Endpoint,
       # Start a worker by calling: Metaitems.Worker.start_link(arg)
       # {Metaitems.Worker, arg}
+      {Blockfrost, [
+        # network: :cardano_mainnet,
+        # name: CardanoMainNet,
+        network: :cardano_testnet,
+        name: CardanoTestNet,
+        api_key: System.get_env("CARDANO_API_KEY"),
+        retry_enabled?: true,
+        retry_max_attempts: 3
+      ]},
+      {Blockfrost, [
+        network: :ipfs,
+        name: IPFS,
+        api_key: System.get_env("IPFS_API_KEY"),
+        retry_enabled?: false
+      ]}
+
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

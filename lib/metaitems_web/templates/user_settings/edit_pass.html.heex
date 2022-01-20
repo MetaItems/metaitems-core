@@ -2,6 +2,7 @@
   <%= live_component MetaitemsWeb.UserLive.SettingsSidebarComponent,
     settings_path: @settings_path,
     pass_settings_path: @pass_settings_path,
+    wallet_settings_path: @wallet_settings_path,
     current_uri_path: @current_uri_path %>
 
     <.form let={f} for={@changeset} phx-submit="save">

@@ -1,21 +1,23 @@
-<div id="nav_bar" class="navbar shadow-lg text-neutral-content">
-  <div class="flex-none hidden lg:flex">
+<div id="nav_bar" class="navbar shadow-lg bg-gradient-secondary text-neutral-content">
+  <div class="flex-none lg:flex">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">           
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>               
       </svg>
     </button>
   </div> 
-  <div class="flex-1 hidden px-2 mx-2 lg:flex">
+  <div class="flex-none hidden px-2 mx-2 lg:flex">
     <span class="text-lg font-bold">
-            <%= @current_user.email %>
-          </span>
+         <a href="/">MetaItems</a> 
+      </span>
   </div> 
-  <div class="flex-1 lg:flex-none">
-    <div class="form-control">
-      <input type="text" placeholder="Search" class="input input-ghost">
+  <div class="flex-1 hidden lg:flex">
+    <div class="form-control items-stretch w-full">
+      <input type="text" placeholder="Search" class="input input-ghost w-full">
     </div>
-  </div> 
+  </div>
+    
+  
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">             
@@ -23,6 +25,21 @@
       </svg>
     </button>
   </div> 
+
+  <div class="flex-1 px-2 mx-2 items-end">
+    <div class="items-stretch hidden lg:flex">
+      <a href="/" class="btn btn-ghost btn-sm rounded-btn">Marketplace</a>
+  
+      <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Profile, @current_user.username)  do %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+          Profile
+        </div>
+      <% end %>
+        
+      <a href="/" class="btn btn-ghost btn-sm rounded-btn">Activity</a>
+    </div>
+  </div>
+
   <div class="flex-none">
     <%= link to: Routes.user_session_path(@socket, :delete), method: :delete do %>
       <button class="btn btn-square btn-ghost"> 
@@ -32,9 +49,19 @@
       </button>
       <% end %>
   </div> 
+  
+
   <div class="flex-none">
-    <div class="avatar">
-      <div class="rounded-full w-10 h-10 m-1">
+    <button class="btn btn-outline"> 
+        Connect
+    </button>
+  </div> 
+
+
+  <div class="flex-none ml-4">
+    <div class="my-6 avatar indicator">
+      <div class="indicator-item badge badge-secondary"></div>
+      <div class="rounded-full w-10 h-10">
         <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>
           <img src="https://i.pravatar.cc/500?img=32">
         <% end %>

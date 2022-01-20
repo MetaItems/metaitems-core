@@ -11,16 +11,19 @@ defmodule MetaitemsWeb.UserLive.Settings do
 
   @impl true
   def mount(_params, session, socket) do
-    socket = assign_default(session, socket)
+    socket = assign_defaults(session, socket)
     changeset = Accounts.change_user(socket.assigns.current_user)
     settings_path = Routes.live_path(socket, __MODULE__)
     pass_settings_path = Routes.live_path(socket, MetaitemsWeb.UserLive.PassSettings)
+    wallet_settings_path = Routes.live_path(socket, MetaitemsWeb.WalletLive.WalletSettings)
 
     {:ok,
       socket
       |> assign(changeset: changeset)
       |> assign(page_title: "Edit Profile")
-      |> assign(settings_path: settings_path, pass_settings_path: pass_settings_path)
+      |> assign(settings_path: settings_path,
+          pass_settings_path: pass_settings_path,
+          wallet_settings_path: wallet_settings_path)
     }
   end
 

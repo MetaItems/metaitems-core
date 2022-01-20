@@ -6,7 +6,7 @@ defmodule MetaitemsWeb.UserLive.RegistrationLive do
 
   @impl true
   def mount(_params, session, socket) do
-    socket = assign_default(session, socket)
+    socket = assign_defaults(session, socket)
     changeset = Accounts.change_user_registration(%User{})
     {:ok,
       socket
