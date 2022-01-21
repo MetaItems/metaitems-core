@@ -25,12 +25,14 @@ config :metaitems, MetaitemsWeb.Endpoint,
   secret_key_base: "HaTWn834UsbLr+Aua8bJP+0pAPmNAQSpkS7d/PkiPIeKaz6heWvJE/ofWl9yitYN",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     node: [
-      "node_modules/vite/bin/vite.js",
-      cd: Path.expand("../assets", __DIR__)
+      # "node_modules/vite/bin/vite.js", # if using vite
+      # cd: Path.expand("../assets", __DIR__)
+      "esbuild.config.js", "--watch", cd: Path.expand("../assets", __DIR__)
     ]
   ]
+
 
   # Cardano Wallet Config
 config :cardanoex,

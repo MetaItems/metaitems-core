@@ -1,6 +1,9 @@
 import { defineConfig } from "vite";
+// import react from '@vitejs/plugin-react'
+// import ViteRsw from 'vite-plugin-rsw';
 
-export default defineConfig(({ command }) => {
+
+export default defineConfig(({ command }) => { 
   const isDev = command !== "build";
   if (isDev) {
     // Terminate the watcher when Phoenix quits
@@ -13,7 +16,19 @@ export default defineConfig(({ command }) => {
 
   return {
     publicDir: "static",
-    // plugins: [react()],
+    // plugins: [
+    //   ViteRsw({
+    //     mode: 'development',
+    //     crates: [
+    //       'cardano-serialization-lib', // npm org
+    //     ],
+    //   }),
+    // ],
+    // plugins: [
+    //   react({
+    //     jsxRuntime: 'classic'
+    //   }
+    // )],
     build: {
       target: "esnext", // build for recent browsers
       outDir: "../priv/static", // emit assets to priv/static
@@ -29,7 +44,14 @@ export default defineConfig(({ command }) => {
           chunkFileNames: "assets/[name].js",
           assetFileNames: chunkAssets
         }
-      }
+      },
+      // Force deps include
+      // optimizeDeps: {
+      //   include: [
+      //     '@emurgo/cardano-serialization-lib-browser/cardano_setialization_lib_bg.wasm',
+      //     '@emurgo/cardano-serialization-lib-browser/cardano_setialization_lib_bg.js'
+      //   ],
+      // },
     }
   };
 });
@@ -60,3 +82,4 @@ function chunkAssets(info) {
     .filter(([key, _value]) => info.name.match(key))
     .map(([_key, value]) => value)[0] || "[ext]/[name][extname]"
 }
+

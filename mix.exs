@@ -39,10 +39,12 @@ defmodule Metaitems.MixProject do
       {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_react, "~> 0.4"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6.2"},
       {:swoosh, "~> 1.6"},
@@ -67,7 +69,7 @@ defmodule Metaitems.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "cmd --cd assets NODE_ENV=production node scripts/build.js",
+        "cmd --cd assets NODE_ENV=production node esbuild.config.js --deploy",
         "phx.digest"
       ]
     ]

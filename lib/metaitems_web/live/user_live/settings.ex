@@ -23,7 +23,8 @@ defmodule MetaitemsWeb.UserLive.Settings do
       |> assign(page_title: "Edit Profile")
       |> assign(settings_path: settings_path,
           pass_settings_path: pass_settings_path,
-          wallet_settings_path: wallet_settings_path)
+          wallet_settings_path: wallet_settings_path
+          )
     }
   end
 
@@ -49,5 +50,16 @@ defmodule MetaitemsWeb.UserLive.Settings do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
+  end
+
+  @doc """
+  We updated this function for when the username param is present,
+  get the user and assign it along with page title to the socket
+  """
+  @impl true
+  def handle_params(_params, uri, socket) do
+    {:noreply,
+      socket
+      |> assign(current_uri_path: URI.parse(uri).path)}
   end
 end

@@ -27,8 +27,14 @@ defmodule MetaitemsWeb.WalletLive.WalletSettings do
       |> assign(settings_path: settings_path,
         pass_settings_path: pass_settings_path,
         wallet_settings_path: wallet_settings_path)
-
     }
+  end
+
+  @impl true
+  def handle_params(_params, uri, socket) do
+    {:noreply,
+      socket
+      |> assign(current_uri_path: URI.parse(uri).path)}
   end
 
   @impl true

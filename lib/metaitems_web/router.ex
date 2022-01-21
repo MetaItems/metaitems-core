@@ -22,7 +22,7 @@ defmodule MetaitemsWeb.Router do
 
     # get "/", PageController, :index
     live "/", ItemsLive.Index, :index
-    live "/:username", UserLive.Profile
+    live "/:username", UserLive.Profile, :index
   end
 
   # Other scopes may use custom stacks.
@@ -84,6 +84,8 @@ defmodule MetaitemsWeb.Router do
     live "/accounts/edit", UserLive.Settings
     live "/accounts/password/change", UserLive.PassSettings
     live "/accounts/wallet/edit", WalletLive.WalletSettings
+    live "/:username/following", UserLive.Profile, :following
+    live "/:username/followers", UserLive.Profile, :followers
   end
 
   scope "/", MetaitemsWeb do

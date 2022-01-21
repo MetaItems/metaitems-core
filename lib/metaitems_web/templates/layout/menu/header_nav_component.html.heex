@@ -30,7 +30,7 @@
     <div class="items-stretch hidden lg:flex">
       <a href="/" class="btn btn-ghost btn-sm rounded-btn">Marketplace</a>
   
-      <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Profile, @current_user.username)  do %>
+      <%= live_patch to: Routes.user_profile_path(@socket, :index, @current_user.username)  do %>
         <div class="btn btn-ghost btn-sm rounded-btn">
           Profile
         </div>
@@ -52,14 +52,15 @@
   
 
   <div class="flex-none">
-    <button class="btn btn-outline"> 
+    <%# <button id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
         Connect
-    </button>
+    </button> %>
+    <%= live_react_component("Components.NamiConnect", id: "nami-connect") %>
   </div> 
 
 
   <div class="flex-none ml-4">
-    <div class="my-6 avatar indicator">
+    <div class="avatar indicator">
       <div class="indicator-item badge badge-secondary"></div>
       <div class="rounded-full w-10 h-10">
         <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>

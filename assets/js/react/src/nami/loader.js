@@ -4,6 +4,7 @@ class Loader {
     /**
      * @private
      */
+    //  this._wasm = await import("@emurgo/cardano-serialization-lib-asmjs/");
     this._wasm = await import("@emurgo/cardano-serialization-lib-browser/");
   }
 

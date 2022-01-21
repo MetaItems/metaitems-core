@@ -67,25 +67,7 @@ defmodule MetaitemsWeb do
        end
       end
 
-      @doc """
-      We updated this function for when the username param is present,
-      get the user and assign it along with page title to the socket
-      """
-      @impl true
-      def handle_params(params, uri, socket) do
-        if Map.has_key?(params, "username") do
-          %{"username" => username} = params
-          user = Accounts.profile(username)
-          {:noreply,
-          socket
-          |> assign(current_uri_path: URI.parse(uri).path)
-          |> assign(user: user, page_title: "(@#{user.username})")}
-        else
-          {:noreply,
-            socket
-            |> assign(current_uri_path: URI.parse(uri).path)}
-        end
-      end
+
 
     end
   end
@@ -133,6 +115,9 @@ defmodule MetaitemsWeb do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+
+      # Import React LiveView functionality
+      import PhoenixLiveReact
 
       import MetaitemsWeb.ErrorHelpers
       import MetaitemsWeb.Gettext

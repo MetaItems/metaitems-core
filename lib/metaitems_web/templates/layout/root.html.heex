@@ -13,11 +13,11 @@
       })
     ) || render MetaitemsWeb.LayoutView, "meta.html", assigns %>
 
-    <%= if Application.get_env(:metaitems, :mix_env) == :devf do %>
-      <script type="module" src="http://localhost:3000/@vite/client"></script>
-      <script defer type="module" src="http://localhost:3000/js/app.js"></script>
+    <%= if Application.get_env(:metaitems, :mix_env) == :dev do %>
+      <%# <script type="module" src="http://localhost:3000/@vite/client"></script>
+      <script defer type="module" src="http://localhost:3000/js/app.js"></script> %>
       <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
-      <%# <script defer phx-track-static type="module" src={Routes.static_path(@conn, "/assets/app.js")}></script> %>
+      <script defer phx-track-static type="module" src={Routes.static_path(@conn, "/assets/app.js")}></script>
    <% else %>  
       <script defer type="module" src="https://minte-1.nyc3.cdn.digitaloceanspaces.com/meta_static/app.js.gz"></script>
       <link rel="stylesheet" href="https://minte-1.nyc3.cdn.digitaloceanspaces.com/meta_static/app.css.gz" />
