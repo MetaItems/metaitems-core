@@ -189,7 +189,7 @@ function NamiConnect() {
 
     return (
     <> 
-        <div className="row" >
+        <div id="connect" className="row" >
             <button className={`button ${connected ? "success" : ""}`} onClick={connect} > {connected ? "Connected" : "Connect to Nami"} </button>
         </div>
     </>

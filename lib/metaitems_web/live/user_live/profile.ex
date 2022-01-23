@@ -20,6 +20,12 @@ defmodule MetaitemsWeb.UserLive.Profile do
   end
 
   @impl true
+  def handle_params(_params, uri, socket) do
+    socket = socket |> assign(current_uri_path: URI.parse(uri).path)
+    {:noreply, apply_action(socket, socket.assigns.live_action)}
+  end
+
+  @impl true
   def handle_info({FollowComponent, :update_totals, updated_user}, socket) do
     {:noreply, socket |> assign(user: updated_user)}
   end

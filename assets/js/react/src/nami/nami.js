@@ -17,7 +17,7 @@ const ERROR = {
 class NamiWalletApi {
     constructor(serilizationLib, nami, apiKey) {
         this.apiKey  = apiKey
-        this.Nami = nami
+        this.Nami = nami.nami
         this.S = serilizationLib
     }
 // Nami Wallet Endpoints
@@ -41,25 +41,29 @@ class NamiWalletApi {
     }
   }
 
+//   Need to refactor all this functions to the new standard API
   async getAddress() {
-    
     if (!this.isEnabled()) throw ERROR.NOT_CONNECTED;
     
-    const addressHex = Buffer.from(
-        (await this.Nami.getUsedAddresses())[0],
-        "hex"
-    );
-    
-    const address = this.S.BaseAddress.from_address(
-        this.S.Address.from_bytes(addressHex)
-    )
-        .to_address()
-        .to_bech32();
-
-    
-    return address;
-  
+    try {
+        const enabled = await this.Nami.enable()  
+            const addressHex = Buffer.from(
+                (enabled.getUsedAddresses())[0],
+                "hex"
+            );
+            
+            const address = this.S.BaseAddress.from_address(
+                this.S.Address.from_bytes(addressHex)
+            )
+                .to_address()
+                .to_bech32();
+            
+            return address;
+    } catch {
+        throw ERROR.NOT_CONNECTED
+    }
   }
+
   async getHexAddress(){
   const addressHex = Buffer.from(
     (await window.cardano.getUsedAddresses())[0],

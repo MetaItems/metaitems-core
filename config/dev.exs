@@ -28,8 +28,17 @@ config :metaitems, MetaitemsWeb.Endpoint,
     # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     node: [
       # "node_modules/vite/bin/vite.js", # if using vite
-      # cd: Path.expand("../assets", __DIR__)
-      "esbuild.config.js", "--watch", cd: Path.expand("../assets", __DIR__)
+      # "NODE_PATH" => Enum.join([Path.expand("../deps", __DIR__),
+      #           Path.expand("../assets/node_modules", __DIR__)], ":")
+
+      "esbuild.config.cjs",
+      cd: Path.expand("../assets", __DIR__),
+
+      env: %{
+        "ESBUILD_LOG_LEVEL" => "silent",
+        "ESBUILD_WATCH" => "1",
+        "NODE_ENV" => "development"
+        }
     ]
   ]
 

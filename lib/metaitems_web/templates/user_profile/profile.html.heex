@@ -25,7 +25,7 @@
   <!-- END Profile Picture Section -->
 
   <!-- Profile Details Section -->
-  <section class="flex flex-col">
+  <section class="mt-4 flex flex-col">
     <div class="flex px-3 pt-3">
         <h1 class="truncate md:overflow-clip text-2xl md:text-2xl text-gray-500 mb-3 mr-10"><%= @user.username %></h1>
         <span class="ml-11">
@@ -33,7 +33,7 @@
           <%= if @live_action == :edit_profile do %>
             <%= live_patch "Edit Profile",
               to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings),
-              class: "py-1 px-2 rounded font-semibold text-gray-50 bg-gradient-secondary " %>
+              class: "py-2 px-2 rounded font-semibold text-gray-50 bg-gradient-secondary " %>
           <% end %>
 
           <%= if @live_action == :follow_component do %>
@@ -44,7 +44,7 @@
           <% end %>
 
           <%= if @live_action == :login_btn do %>
-            <%= link "Follow", to: Routes.user_session_path(@socket, :new), class: "py-1 px-5 border-none shadow rounded text-gray-50 hover:bg-blue-600 bg-blue-500" %>
+            <%= link "Follow", to: Routes.user_session_path(@socket, :new), class: "py-2 px-5 border-none shadow rounded text-gray-50 hover:bg-blue-600 bg-blue-500" %>
           <% end %>
     
         </span>
@@ -75,18 +75,21 @@
 </header>
 
 <section class="flex-1 border-t-2 mt-5">
-  <ul class="flex justify-center text-center space-x-20">
+  <ul class="flex justify-center text-center space-x-16">
     <li class="pt-4 px-1 text-sm text-gray-600 border-t-2 border-black -mt-0.5">
-       POSTS
+       Owned
     </li>
     <li class="pt-4 px-1 text-sm text-gray-400">
-      IGTV
+       On Sale
     </li>
     <li class="pt-4 px-1 text-sm text-gray-400">
-      SAVED
+       Created
     </li>
     <li class="pt-4 px-1 text-sm text-gray-400">
-      TAGGED
+       Saved
+    </li>
+    <li class="pt-4 px-1 text-sm text-gray-400">
+       Activity
     </li>
   </ul>
 </section>

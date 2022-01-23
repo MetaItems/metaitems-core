@@ -18,8 +18,7 @@
       </div>
       <%= if @current_user !== follow.followed do %>
         <span class="ml-auto">
-          <%= live_component @socket,
-            MetaitemsWeb.UserLive.FollowComponent,
+          <%= live_component MetaitemsWeb.UserLive.FollowComponent,
             id: follow.followed.id,
             user: follow.followed,
             current_user: @current_user %>

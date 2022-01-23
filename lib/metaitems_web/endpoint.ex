@@ -20,7 +20,7 @@ defmodule MetaitemsWeb.Endpoint do
     at: "/",
     from: :metaitems,
     gzip: false,
-    only: ~w(assets css js fonts images favicon.ico robots.txt)
+    only: ~w(assets css js fonts images favicon.ico robots.txt wasm)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

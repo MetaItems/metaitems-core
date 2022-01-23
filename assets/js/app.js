@@ -34,22 +34,24 @@ import {LiveSocket} from "phoenix_live_view"
 // import topbar from "../vendor/topbar"
 
 
-import LiveReact, { initLiveReact } from "phoenix_live_react"
-import { NamiConnect } from "./react/src/components/NamiConnect"
+// import LiveReact, { initLiveReact } from "phoenix_live_react"
+// import NamiConnect from "./react/src/components/NamiConnect"
 
-window.Components = {
-  NamiConnect
-}
+// window.Components = {
+//   NamiConnect
+// }
 
 import Alpine from "alpinejs" // Remove soon 
 window.Alpine = Alpine;
 Alpine.start();
 
-let hooks = { LiveReact }
+import Hooks from './bundle.js'
+
+// let hooks = { LiveReact }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
-  hooks,
+  hooks: Hooks,
   params: {_csrf_token: csrfToken},
   dom: {
     onBeforeElUpdated(from, to) {
@@ -61,9 +63,9 @@ let liveSocket = new LiveSocket("/live", Socket, {
 // Optionally render the React components on page load as
 // well to speed up the initial time to render.
 // The pushEvent, pushEventTo and handleEvent props will not be passed here.
-document.addEventListener("DOMContentLoaded", e => {
-  initLiveReact()
-})
+// document.addEventListener("DOMContentLoaded", e => {
+//   initLiveReact()
+// })
 
 // Show progress bar on live navigation and form submits
 // topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})

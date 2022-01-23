@@ -1,4 +1,5 @@
-import NamiWallet from "./wallets/nami/index.js";
+// import NamiWallet from "./react/src/components/NamiConnect.jsx";
+import {t, connect, getAddress } from "./react/src/index.js";
 
 let Hooks = {}
 
@@ -8,8 +9,12 @@ Hooks.NamiConnectWallet = {
   mounted(){
     // `upload` iterates through all files selected and invokes a helper function called `retrieveNewURL`.
     document.getElementById('nami-connect-wallet').addEventListener('click', function(e) {
-      console.log("I work");    
-      NamiWallet.connect();
+      t();   
+      // connect()
+      // .then(getAddress());
+      getAddress();
+      
+
     });
   },
   reconnected(){ this.pending = this.page() },

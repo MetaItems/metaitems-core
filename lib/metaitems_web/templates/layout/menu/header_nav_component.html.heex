@@ -1,4 +1,4 @@
-<div id="nav_bar" class="navbar shadow-lg bg-gradient-secondary text-neutral-content">
+<div id="nav_bar" class="navbar shadow-lg">
   <div class="flex-none lg:flex">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">           
@@ -13,7 +13,7 @@
   </div> 
   <div class="flex-1 hidden lg:flex">
     <div class="form-control items-stretch w-full">
-      <input type="text" placeholder="Search" class="input input-ghost w-full">
+      <input type="text" placeholder="Search" class="bg-gray-100 input input-ghost w-full">
     </div>
   </div>
     
@@ -52,17 +52,17 @@
   
 
   <div class="flex-none">
-    <%# <button id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
+    <button id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
         Connect
-    </button> %>
-    <%= live_react_component("Components.NamiConnect", id: "nami-connect") %>
+    </button>
+    <%#= live_react_component("Components.NamiConnect", [name: "connector"], id: "nami-connector") %>
   </div> 
 
 
   <div class="flex-none ml-4">
     <div class="avatar indicator">
-      <div class="indicator-item badge badge-secondary"></div>
-      <div class="rounded-full w-10 h-10">
+      <div class="indicator-item badge badge-xs badge-accent"></div>
+      <div class="rounded-full w-12 h-12">
         <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>
           <img src="https://i.pravatar.cc/500?img=32">
         <% end %>
