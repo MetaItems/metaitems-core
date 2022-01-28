@@ -30,13 +30,19 @@
     <div class="items-stretch hidden lg:flex">
       <a href="/" class="btn btn-ghost btn-sm rounded-btn">Marketplace</a>
   
-      <%= live_patch to: Routes.user_profile_path(@socket, :index, @current_user.username)  do %>
+      <%= live_redirect to: Routes.user_profile_path(@socket, :index, @current_user.username)  do %>
         <div class="btn btn-ghost btn-sm rounded-btn">
           Profile
         </div>
       <% end %>
-        
+      
       <a href="/" class="btn btn-ghost btn-sm rounded-btn">Activity</a>
+      
+      <%= live_redirect to: Routes.item_new_path(@socket, :new)  do  %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+        New
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -64,7 +70,11 @@
       <div class="indicator-item badge badge-xs badge-accent"></div>
       <div class="rounded-full w-12 h-12">
         <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>
-          <img src="https://i.pravatar.cc/500?img=32">
+         <%= if @current_user.avatar_url do %>
+            <img src={@current_user.avatar_url}>
+          <% else %>
+            <img src={"https://ui-avatars.com/api/?name=#{@current_user.username}"}>
+          <% end %>
         <% end %>
       </div>
     </div>

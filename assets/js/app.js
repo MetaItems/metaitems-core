@@ -34,24 +34,18 @@ import {LiveSocket} from "phoenix_live_view"
 // import topbar from "../vendor/topbar"
 
 
-// import LiveReact, { initLiveReact } from "phoenix_live_react"
-// import NamiConnect from "./react/src/components/NamiConnect"
-
-// window.Components = {
-//   NamiConnect
-// }
-
 import Alpine from "alpinejs" // Remove soon 
 window.Alpine = Alpine;
 Alpine.start();
 
 import Hooks from './bundle.js'
+import Uploaders  from "./uploaders.js";
 
-// let hooks = { LiveReact }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
   hooks: Hooks,
+  uploaders: Uploaders,
   params: {_csrf_token: csrfToken},
   dom: {
     onBeforeElUpdated(from, to) {

@@ -1,4 +1,4 @@
-<div class="navbar absolute h-16 top-0 inset-x-0 text-neutral-content">
+<div class="navbar absolute h-16 top-0 inset-x-0">
   <div class="flex-none px-2 mx-2">
     <span class="text-lg font-bold">
             Meta Items
@@ -7,11 +7,11 @@
   <div class="flex-1 px-2 mx-2">
     <div class="items-stretch hidden lg:flex">
       
-      <%= live_redirect to: Routes.items_index_path(@conn, :index) do %>
-        <button class="btn btn-ghost btn-sm rounded-btn">
-            Home
-        </button>
-      <% end %>
+     
+      <a href="/" class="btn btn-ghost btn-sm rounded-btn">
+          Home
+      </a>
+   
       <a href="#roadmap" class="btn btn-ghost btn-sm rounded-btn">
               Roadmap
       </a> 

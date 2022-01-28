@@ -1,5 +1,7 @@
 <%= if !@current_user do %>
-  <%= render(MetaitemsWeb.PageView, "index.html", assigns) %>
+  <%= live_component MetaitemsWeb.UserLive.RegistrationComponent,
+    id: 1, changeset: @changeset, trigger_submit: @trigger_submit %>
+  <%#= render(MetaitemsWeb.PageView, "index.html", assigns) %>
 <% else %>
   <ul>
     <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>

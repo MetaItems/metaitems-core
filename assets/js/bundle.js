@@ -1,7 +1,9 @@
 // import NamiWallet from "./react/src/components/NamiConnect.jsx";
-import {t, connect, getAddress } from "./react/src/index.js";
+import {t, connect, getAddress } from "./src/index.js";
+import onChange  from "./src/ipfs-uploader/client.js";
 
-let Hooks = {}
+let Hooks = {
+}
 
 // Nami Wallet Hooks
 Hooks.NamiConnectWallet = {

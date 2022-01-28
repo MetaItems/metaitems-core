@@ -19,8 +19,13 @@
 <header class="flex items-center mx-auto justify-center px-10">
   <!-- Profile Picture Section -->
   <section class="flex-none">
-      <%#= img_tag @user.avatar_url, class: "w-40 h-40 rounded-full object-cover object-center" %>
-      <img class= "w-24 h-24 rounded-full object-cover object-center" src="https://i.pravatar.cc/500?img=32">
+     
+      <%= if @user.avatar_url do %>
+          <%= img_tag @user.avatar_url, class: "w-40 h-40 rounded-full object-cover object-center" %>
+      <% else %>
+          <img class= "w-24 h-24 rounded-full object-cover object-center" src={"https://ui-avatars.com/api/?name=#{@user.username}"}>
+      <% end %>
+      
   </section>
   <!-- END Profile Picture Section -->
 
@@ -52,9 +57,13 @@
 
     <div>
       <ul class="flex p-3">
-          <li><b>0</b> NFTs</li>
-          <li class="ml-11"><b><%=  @user.followers_count %></b> Followers</li>
-          <li class="ml-11"><b><%=  @user.following_count %></b> Following</li>
+          <li><b><%= @user.items_count %></b> NFTs</li>
+          <%= live_patch to: Routes.user_profile_path(@socket, :followers, @user.username) do %>
+            <li class="ml-11"><b><%= @user.followers_count %></b> Followers</li>
+          <% end %>
+          <%= live_patch to: Routes.user_profile_path(@socket, :following, @user.username) do %>
+            <li class="ml-11"><b><%= @user.following_count %></b> Following</li>
+          <% end %>
       </ul>
     </div>
 
@@ -93,3 +102,17 @@
     </li>
   </ul>
 </section>
+
+<div id="items" phx-update="append" class="mt-9 grid gap-4 grid-cols-4">
+    <%= for item <- @items do %>
+      <%= live_redirect img_tag(item.photo_url, class: "card card-bordered card-normal object-cover h-80 w-full"),
+        id: item.url_id,
+        to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, item.url_id) %>
+    <% end %>
+</div>
+
+<div
+  id="profile-posts-footer"
+  class="flex justify-center"
+  phx-hook="ProfileItemsScroll">
+</div>

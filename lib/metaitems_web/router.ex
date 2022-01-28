@@ -21,7 +21,7 @@ defmodule MetaitemsWeb.Router do
     pipe_through :browser
 
     # get "/", PageController, :index
-    live "/", ItemsLive.Index, :index
+    live "/", ItemLive.Index, :index
     live "/:username", UserLive.Profile, :index
   end
 
@@ -66,6 +66,8 @@ defmodule MetaitemsWeb.Router do
 
     get "/users/register", UserRegistrationController, :new
     post "/users/register", UserRegistrationController, :create
+    # live "/users/register", UserLive.RegistrationComponent, :create
+
     get "/users/login", UserSessionController, :new
     post "/users/login", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
@@ -86,6 +88,8 @@ defmodule MetaitemsWeb.Router do
     live "/accounts/wallet/edit", WalletLive.WalletSettings
     live "/:username/following", UserLive.Profile, :following
     live "/:username/followers", UserLive.Profile, :followers
+
+    live "/i/new", ItemLive.New, :new
   end
 
   scope "/", MetaitemsWeb do
@@ -96,5 +100,8 @@ defmodule MetaitemsWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    # Getting some crazy bug
+    live "/i/:id", ItemLive.Show
   end
 end

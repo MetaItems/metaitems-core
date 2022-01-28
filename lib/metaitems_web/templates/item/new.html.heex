@@ -1,0 +1,74 @@
+<div class="flex flex-col lg:w-1/2 mx-auto">
+  <h2 class="text-xl font-bold text-gray-900 py-6 ml-4"><%= @page_title %></h2>
+
+  <form id="upload-form" phx-change="pass">
+
+    <div class="border border-dashed border-gray-500 relative" phx-drop-target={@uploads.photo_url.ref}>
+      <%= live_file_input @uploads.photo_url, class: "cursor-pointer relative block opacity-0 w-full h-full p-20 z-30" %>
+      <div class="text-center p-10 absolute top-0 right-0 left-0 m-auto">
+          <h4>
+              Drop files anywhere to upload
+              <br/>or
+          </h4>
+          <p class="">Select Files</p>
+      </div>
+    </div>
+
+    <%= for entry <- @uploads.photo_url.entries do %>
+      <%= for err <- upload_errors(@uploads.photo_url, entry) do %>
+        <p class="alert alert-danger"><%= MetaitemsWeb.ItemLive.New.error_to_string(err) %></p>
+      <% end %>
+
+      <div class="my-8 flex items-center">
+        <div>
+          <%= live_img_preview entry, height: 250, width: 250 %>
+        </div>
+        <div class="px-4">
+          <progress class="bg-green-400" max="100" value={entry.progress} />
+        </div>
+        <span><%= entry.progress %>%</span>
+        <div class="px-4">
+          <a href="#" class="text-red-600 text-lg font-semibold" phx-click="cancel-entry" phx-value-ref={entry.ref}>cancel</a>
+        </div>
+      </div>
+    <% end %>
+  </form>
+
+
+  <.form let={f} for={@changeset} phx-update="ignore" phx-change="validate" phx-submit="save">
+    <div class=" mt-4 p-10 card bg-gray-100">
+      <div class="form-control space-y-4">
+        <%= text_input f, :photo_url, class: "hidden upload_photo_url input border-2 border-gray-200 rounded p-1 text-semibold text-gray-700 focus:ring-transparent" %>
+        <%= error_tag f, :photo_url %>
+
+        <%= label f, :name, class: "label-text" %>
+        <%= text_input f, :name, class: "input border-2 border-gray-200 rounded p-1 text-semibold text-gray-700 focus:ring-transparent", placeholder: "NFT Name", phx_debounce: "blur" %>
+        <div class="text-yellow-300">
+          <%= error_tag f, :name %>
+        </div>
+        
+    
+        <%= label f, :description, class: "label-text" %>
+        <%= textarea f, :description, class: "w-full border-2 border-gray-200 rounded p-1 text-semibold text-gray-700 focus:ring-transparent", rows: 5, placeholder: "Description(Optional)", phx_debounce: "blur" %>
+        <div class="text-yellow-300">
+          <%= error_tag f, :description %>
+        </div>
+
+        <%= label f, :quantity, class: "label-text " %>
+        <%= number_input f, :quantity, class: "input border-2 border-gray-200 rounded p-1 text-semibold text-gray-700 focus:ring-transparent", value: 1, phx_debounce: "blur" %>
+        <div class="text-yellow-300">
+          <%= error_tag f, :quantity %>
+        </div>  
+      </div>
+      
+      <div class="flex justify-center mt-4">
+        <div>
+         <%= submit "Mint", phx_disable_with: "Saving...", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <div class="flex">
+          <a class="bottom-4 mr-4 underline text-gray-400 " href="">Mint Later</a> 
+      </div>
+    </div>
+  </.form>
+</div>

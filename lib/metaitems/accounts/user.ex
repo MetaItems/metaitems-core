@@ -12,15 +12,17 @@ defmodule Metaitems.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    field :avatar_url, :string, default: "/images/default-avatar.png"
+    field :avatar_url, :string, default: "/images/default-avatar.svg"
     field :bio, :string
     field :website, :string
     field :twitter, :string
     field :verified, :boolean, default: false
     field :followers_count, :integer, default: 0
     field :following_count, :integer, default: 0
+    field :items_count,  :integer,  default:  0
     has_many :following, Follows,  foreign_key:  :follower_id
     has_many :followers, Follows,  foreign_key:  :followed_id
+    has_many :items, Metaitems.Items.Item
 
     timestamps()
   end

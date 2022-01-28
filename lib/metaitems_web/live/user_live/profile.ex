@@ -1,7 +1,7 @@
 defmodule MetaitemsWeb.UserLive.Profile do
   use MetaitemsWeb, :live_view
 
-  alias Metaitems.Context.Accounts
+  alias Metaitems.Context.{Accounts, Items}
   alias MetaitemsWeb.UserLive.FollowComponent
 
   @impl true
@@ -14,14 +14,55 @@ defmodule MetaitemsWeb.UserLive.Profile do
     socket = assign_defaults(session, socket)
     user = Accounts.profile(username)
     {:ok, socket
+      |> assign(page: 1, per_page: 15)
       |> assign(user: user)
       |> assign(page_title: "@#{user.username}")
+      |> assign_items(),
+      temporary_assigns: [items: []]
     }
   end
 
+  ##############################
+  # Load Created Items handlers
+  ##############################
+
+  defp assign_items(socket) do
+    socket
+    |> assign(items:
+      Items.list_profile_items(
+        page: socket.assigns.page,
+        per_page: socket.assigns.per_page,
+        user_id: socket.assigns.user.id
+      )
+    )
+  end
+
   @impl true
-  def handle_params(_params, uri, socket) do
-    socket = socket |> assign(current_uri_path: URI.parse(uri).path)
+  def handle_event("load-more-profile-items", _, socket) do
+    {:noreply, socket |> load_items}
+  end
+
+  defp load_items(socket) do
+    total_items = socket.assigns.user.items_count
+    page = socket.assigns.page
+    per_page = socket.assigns.per_page
+    total_pages = ceil(total_items / per_page)
+
+    if page == total_pages do
+      socket
+    else
+      socket
+      |> update(:page, &(&1 + 1))
+      |> assign_items()
+    end
+  end
+
+  ###########################
+  # Follower function handlers
+  ###############################
+
+  @impl true
+  def handle_params(_params, _uri, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action)}
   end
 

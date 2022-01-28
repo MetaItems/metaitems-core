@@ -3,6 +3,9 @@ defmodule MetaitemsWeb.UserLive.Settings do
 
   alias Metaitems.Context.Accounts
   alias Metaitems.Accounts.User
+  alias Metaitems.Uploaders.Avatar
+
+  @extension_whitelist ~w(.jpg .jpeg .png)
 
   @impl true
   def render(assigns) do
@@ -25,6 +28,11 @@ defmodule MetaitemsWeb.UserLive.Settings do
           pass_settings_path: pass_settings_path,
           wallet_settings_path: wallet_settings_path
           )
+      |> allow_upload(:avatar_url,
+        accept: @extension_whitelist,
+        max_file_size: 9_000_000,
+        progress: &handle_progress/3,#Function that will handle automatic uploads
+        auto_upload: true)
     }
   end
 
@@ -61,5 +69,27 @@ defmodule MetaitemsWeb.UserLive.Settings do
     {:noreply,
       socket
       |> assign(current_uri_path: URI.parse(uri).path)}
+  end
+
+  defp handle_progress(:avatar_url, entry, socket) do
+    # If file is already uploaded to tmp folder
+    if entry.done? do
+      avatar_url = Avatar.get_avatar_url(socket, entry)
+      user_params = %{"avatar_url" => avatar_url}
+      case Accounts.update_user(socket.assigns.current_user, user_params) do
+        {:ok, _user} ->
+          Avatar.update(socket, socket.assigns.current_user.avatar_url, entry)
+
+          current_user = Accounts.get_user!(socket.assigns.current_user.id)
+          {:noreply,
+            socket
+            |> put_flash(:info, "Avatar updated successfully")
+            |> assign(current_user: current_user)}
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, :changeset, changeset)}
+      end
+    else
+      {:noreply, socket}
+    end
   end
 end
