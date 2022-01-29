@@ -5,6 +5,22 @@ import onChange  from "./src/ipfs-uploader/client.js";
 let Hooks = {
 }
 
+Hooks.ProfileItemsScroll = {
+  mounted() {
+    this.observer = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {  
+        this.pushEvent("load-more-profile-items");
+      }
+    });
+
+    this.observer.observe(this.el);
+  },
+  destroyed() {
+    this.observer.disconnect();
+  },
+}
+
 // Nami Wallet Hooks
 Hooks.NamiConnectWallet = {
   page() { return this.el.dataset.page },

@@ -36,7 +36,10 @@ defmodule Metaitems.Context.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_item!(id), do: Repo.get!(Item, id)
+  def get_item!(id) do
+    Repo.get!(Item, id)
+    |> Repo.preload([:user, :likes])
+  end
 
   @doc """
   Creates a item.
@@ -77,7 +80,7 @@ defmodule Metaitems.Context.Items do
 
   def get_item_by_url!(id) do
     Repo.get_by!(Item, url_id: id)
-    |> Repo.preload(:user)
+    |> Repo.preload([:user, :likes])
   end
 
   @doc """
@@ -91,7 +94,7 @@ defmodule Metaitems.Context.Items do
   """
   def list_profile_items(page: page, per_page: per_page, user_id: user_id) do
     Item
-    |> select([i], map(i, [:url_id, :photo_url]))
+    |> select([i], map(i, [:url_id, :photo_url, :name]))
     |> where(user_id: ^user_id)
     |> limit(^per_page)
     |> offset(^((page - 1) * per_page))

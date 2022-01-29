@@ -11,13 +11,15 @@ defmodule Metaitems.Items.Item do
     field :quantity, :integer
 
     field :review_score, :integer, default: 0
-    field :royalties, :decimal, default: 0.0
+    field :royalties, :decimal, default: 2.5
     field :total_comments, :integer, default: 0
     field :total_likes, :integer, default: 0
     field :total_reviews, :integer, default: 0
     field :type, :string
     field :unlock_content, :string
     belongs_to :user, Metaitems.Accounts.User
+
+    has_many :likes, Metaitems.Likes.Like, foreign_key: :liked_id
 
     timestamps()
   end

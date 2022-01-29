@@ -18,7 +18,10 @@ defmodule MetaitemsWeb.UserLive.Settings do
     changeset = Accounts.change_user(socket.assigns.current_user)
     settings_path = Routes.live_path(socket, __MODULE__)
     pass_settings_path = Routes.live_path(socket, MetaitemsWeb.UserLive.PassSettings)
+
+    # Make this part admin only later and format better
     wallet_settings_path = Routes.live_path(socket, MetaitemsWeb.WalletLive.WalletSettings)
+    admin_settings_path = Routes.live_path(socket, MetaitemsWeb.AdminLive.PolicyImport)
 
     {:ok,
       socket
@@ -26,7 +29,8 @@ defmodule MetaitemsWeb.UserLive.Settings do
       |> assign(page_title: "Edit Profile")
       |> assign(settings_path: settings_path,
           pass_settings_path: pass_settings_path,
-          wallet_settings_path: wallet_settings_path
+          wallet_settings_path: wallet_settings_path,
+          admin_settings_path: admin_settings_path
           )
       |> allow_upload(:avatar_url,
         accept: @extension_whitelist,

@@ -1,8 +1,9 @@
-defmodule MetaitemsWeb.ItemLive.Showing do
+defmodule MetaitemsWeb.ItemLive.Show do
   use MetaitemsWeb, :live_view
 
   alias Metaitems.Context.Items
   alias Metaitems.Uploaders.Avatar
+  alias MetaitemsWeb.ItemLive.LikeComponent
 
 
   @impl true
@@ -17,6 +18,14 @@ defmodule MetaitemsWeb.ItemLive.Showing do
     {:ok,
     socket
     |> assign(item: item)
+    }
+  end
+
+  @impl true
+  def handle_info({LikeComponent, :update_item_likes, item_id}, socket) do
+    {:noreply,
+      socket
+      |> assign(item: Items.get_item!(item_id))
     }
   end
 

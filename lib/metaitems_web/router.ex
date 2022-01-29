@@ -85,11 +85,14 @@ defmodule MetaitemsWeb.Router do
 
     live "/accounts/edit", UserLive.Settings
     live "/accounts/password/change", UserLive.PassSettings
-    live "/accounts/wallet/edit", WalletLive.WalletSettings
     live "/:username/following", UserLive.Profile, :following
     live "/:username/followers", UserLive.Profile, :followers
 
     live "/i/new", ItemLive.New, :new
+
+    # Admin Only for now
+    live "/accounts/wallet/edit", WalletLive.WalletSettings
+    live "/accounts/admin/import_nfts", AdminLive.PolicyImport
   end
 
   scope "/", MetaitemsWeb do

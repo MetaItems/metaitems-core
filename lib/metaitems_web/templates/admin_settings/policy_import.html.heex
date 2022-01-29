@@ -1,0 +1,31 @@
+<section class="border-2 flex">
+  <%= live_component MetaitemsWeb.UserLive.SettingsSidebarComponent,
+    settings_path: @settings_path,
+    pass_settings_path:  @pass_settings_path, 
+    wallet_settings_path: @wallet_settings_path,
+    admin_settings_path: @admin_settings_path,
+    current_uri_path: @current_uri_path %>
+
+  <section class="flex flex-col mx-6 w-full">
+    <.form let={f} for={@changeset} phx-submit="save">
+    <div class="p-10 bg-base-200">
+      <div class="form-control space-y-4">
+        
+        <div class="flex items-center">
+          <%= label f, :policy_id, class: "text-right font-semibold" %>
+          <div class="pl-8">
+            <%= text_input f, :policy_id, class: "input", placeholder: "Policy ID #", phx_debounce: "blur", required: true, class: "w-1/2 rounded p-1 text-semibold text-gray-600 focus:ring-transparent border border-gray-400 focus:border-black" %>
+            <div class="text-yellow-300">
+              <%= error_tag f, :policy_id %>
+            </div>
+          </div>
+          <button class="ml-4 btn btn-primary" 
+          phx-click="get_assets">
+          Import</button>
+        </div>
+         
+      </div>
+    </div>
+    </.form>   
+    </section>
+</section>

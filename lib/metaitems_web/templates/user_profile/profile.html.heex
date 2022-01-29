@@ -105,9 +105,14 @@
 
 <div id="items" phx-update="append" class="mt-9 grid gap-4 grid-cols-4">
     <%= for item <- @items do %>
-      <%= live_redirect img_tag(item.photo_url, class: "card card-bordered card-normal object-cover h-80 w-full"),
-        id: item.url_id,
-        to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, item.url_id) %>
+
+      <div id="card" class="card card-bordered card-normal shadow-xl">
+        <%= live_redirect img_tag(item.photo_url, class: "object-cover h-80 w-full"),
+          id: item.url_id,
+          to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, item.url_id) %>
+        <h3><%= item.name %></h3>
+      </div>
+     
     <% end %>
 </div>
 
