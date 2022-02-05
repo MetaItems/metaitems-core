@@ -1,9 +1,9 @@
 import { create } from 'ipfs-http-client';
 import { Buffer } from "buffer";
-import {InfuraApiKey} from '../../config.js'; 
+import {InfuraApiKey, InfuraProjectID} from 'env'; 
 
 // This is stupid confusing
-const INFURA_ID = '24FQGaDR0vciIowz8jKGinh3Zew';
+const INFURA_ID = InfuraProjectID;
 const SECRET_KEY = InfuraApiKey;
 const auth = 'Basic ' + Buffer.from(INFURA_ID + ':' + SECRET_KEY).toString('base64')
 

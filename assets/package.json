@@ -30,6 +30,7 @@
     "chokidar": "^3.5.3",
     "daisyui": "^1.21.0",
     "esbuild": "^0.14.13",
+    "esbuild-envfile-plugin": "^1.0.2",
     "esbuild-plugin-wasm": "^1.0.0",
     "esbuild-sass-plugin": "^2.0.3",
     "fs": "^0.0.1-security",

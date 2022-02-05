@@ -16,13 +16,17 @@ defmodule MetaitemsWeb.UserLive.PassSettings do
     settings_path = Routes.live_path(socket, MetaitemsWeb.UserLive.Settings)
     wallet_settings_path = Routes.live_path(socket, MetaitemsWeb.WalletLive.WalletSettings)
     pass_settings_path = Routes.live_path(socket, __MODULE__)
+    admin_settings_path = Routes.live_path(socket, MetaitemsWeb.AdminLive.PolicyImport)
+
     user = socket.assigns.current_user
 
     {:ok,
       socket
       |> assign(settings_path: settings_path,
           pass_settings_path: pass_settings_path,
-          wallet_settings_path: wallet_settings_path)
+          wallet_settings_path: wallet_settings_path,
+          admin_settings_path: admin_settings_path
+      )
       |> assign(:page_title, "Change Password")
       |> assign(changeset: Accounts.change_user_password(user))
     }

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import NamiWalletApi, { Cardano } from '../nami/nami.js';
-import blockfrostApiKey from '../../../config.js'; 
+import blockfrostApiKey from '../../env'; 
 let nami;
 
 function NamiConnect() {

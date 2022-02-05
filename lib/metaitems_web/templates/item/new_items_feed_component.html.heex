@@ -1,0 +1,76 @@
+<div class="card card-bordered card-compact shadow" id="item-{@item.id}">
+  <div class="flex p-2 items-center">
+    <!-- Post header section -->
+    <%= live_redirect to: Routes.user_profile_path(@socket, :index, @item.user.username) do %>
+      <%= img_tag Metaitems.Uploaders.Avatar.get_thumb(@item.user.avatar_url), class: "w-8 h-8 rounded-full object-cover object-center" %>
+    <% end %>
+    <div class="ml-3">
+      <%= live_redirect @item.user.username,
+        to: Routes.user_profile_path(@socket, :index, @item.user.username),
+        class: "truncate font-bold text-sm text-gray-500 hover:underline" %>
+    </div>
+    <!-- End item header section -->
+  </div>
+  <!-- Post Image section -->
+ 
+  <%#= img_tag @item.photo_url,
+        class: "w-full h-full lg:min-h-fit object-contain object-center bg-white shadow-sm" %>
+
+  <div>
+    <%= live_redirect img_tag(@item.photo_url, class: "object-cover h-80 w-full"),
+          id: @item.url_id,
+          to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, @item.url_id) %>
+  </div>
+ 
+  <!-- End Post Image section -->
+
+  <div class="w-full">
+    <!-- Action icons section -->
+    <div class="flex pl-4 pr-2 pt-1">
+      
+      <%= live_redirect to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, @item.url_id) do %>
+        <h2 class="text-xl font-bold text-gray-500 truncate"><%= @item.name %></h2>
+      <% end %>
+      <div class="w-6 h-6 ml-auto cursor-pointer">
+        <%#= live_component @socket,
+          MetaitemsWeb.ItemLive.LikeComponent,
+          id: @item.id,
+          liked: @item,
+          w_h: "w-8 h-8",
+          current_user: @current_user %>
+      </div>
+    </div>
+    <!-- End Action icons section -->
+
+    <!-- Description section -->
+    <div>
+    
+    <%= live_redirect to: Routes.user_profile_path(@socket, :index, @item.user.username) do %>
+         <span class="ml-4 font-bold text-xs text-gray-500 hover:underline">@<%= @item.user.username %></span>
+      <% end %>
+
+    <button class="text-xs text-gray-500 font-bold focus:outline-none">&bull; <%= @item.total_likes %> likes</button>
+    <span class="text-xs text-gray-500 font-bold focus:outline-none"> &bull; <%= Timex.from_now(@item.inserted_at) %></span> 
+      
+    </div>
+    <!-- End Description Section -->
+  </div>
+
+  <div class="h-12">
+    <%= if @item.description do %>
+      <!-- Description section -->
+      <div class="flex">
+        <div class="mt-1 px-4 w-8/12 h-12 overflow-hidden">
+          <span class="text-sm text-gray-700">
+            <p class="text-xs leading-4"><%= @item.description %></p>
+          </span>
+        </div>
+      </div>
+    <!-- End Description Section -->
+    <% end %>
+  </div>
+  
+
+
+  <h6 class="px-4 py-2 mt-2 text-xs font-bold text-gray-500">EDITION OF: <%= @item.quantity %></h6>
+</div>

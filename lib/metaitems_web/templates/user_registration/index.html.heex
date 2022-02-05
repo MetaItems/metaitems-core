@@ -1,0 +1,7 @@
+<%= if !@current_user do %>
+  <%= live_component MetaitemsWeb.UserLive.RegistrationComponent,
+    id: 1, changeset: @changeset, trigger_submit: @trigger_submit %>
+  <%#= render(MetaitemsWeb.PageView, "index.html", assigns) %>
+<% else %>
+
+<% end %>

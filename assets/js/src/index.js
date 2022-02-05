@@ -1,5 +1,5 @@
 import NamiWalletApi, { Cardano } from './nami/nami.js';
-import {blockfrostApiKey} from '../config.js'; 
+import {blockfrostApiKey} from 'env'; 
 
 let nami;
 

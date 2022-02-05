@@ -26,35 +26,35 @@
 
       <.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
         <%= hidden_input f, :action, name: "action", value: "update_email" %>
-        <div class=" p-10 card bg-base-200">
+        <div class=" p-10 card shadow-xl bg-base-200">
           <div class="form-control space-y-4">
             <%= label f, :username, class: "label-text" %>
-            <%= text_input f, :username, class: "input", placeholder: "username", phx_debounce: "blur" %>
+            <%= text_input f, :username, class: "input border border-gray-300", placeholder: "username", phx_debounce: "blur" %>
             <div class="text-yellow-300">
               <%= error_tag f, :username %>
             </div>
             
         
             <%= label f, :email, class: "label-text" %>
-            <%= email_input f, :email, class: "input", placeholder: "email", phx_debounce: "blur" %>
+            <%= email_input f, :email, class: "input border border-gray-300", placeholder: "email", phx_debounce: "blur" %>
             <div class="text-yellow-300">
               <%= error_tag f, :email %>
             </div>
 
             <%= label f, :website, class: "label-text" %>
-            <%= text_input f, :website, class: "input", placeholder: "www.example.com", phx_debounce: "blur" %>
+            <%= text_input f, :website, class: "input border border-gray-300", placeholder: "https://example.com", phx_debounce: "blur" %>
             <div class="text-yellow-300">
               <%= error_tag f, :website %>
             </div>
 
             <%= label f, :twitter, class: "label-text" %>
-            <%= text_input f, :twitter, class: "input", placeholder: "ex: @me", phx_debounce: "blur" %>
+            <%= text_input f, :twitter, class: "input border border-gray-300", placeholder: "ex: @me", phx_debounce: "blur" %>
             <div class="text-yellow-300">
               <%= error_tag f, :twitter %>
             </div>
 
             <%= label f, :bio, class: "label-text" %>
-            <%= textarea f, :bio, class: "textarea h-24", phx_debounce: "blur" %>
+            <%= textarea f, :bio, class: "textarea h-24 border border-gray-300", phx_debounce: "blur" %>
             <div class="text-yellow-300">
               <%= error_tag f, :bio %>
             </div>

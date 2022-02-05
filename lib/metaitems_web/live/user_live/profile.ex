@@ -14,26 +14,26 @@ defmodule MetaitemsWeb.UserLive.Profile do
     socket = assign_defaults(session, socket)
     user = Accounts.profile(username)
     {:ok, socket
-      |> assign(page: 1, per_page: 15)
+      |> assign(page: 1, per_page: 4)
       |> assign(user: user)
       |> assign(page_title: "@#{user.username}")
-      |> assign_items(),
-      temporary_assigns: [items: []]
+      |> assign(items: [])
+      |> assign_items()
+      # temporary_assigns: [items: []]
     }
   end
 
   ##############################
   # Load Created Items handlers
   ##############################
-
   defp assign_items(socket) do
+    new_items = Items.list_profile_items(
+      page: socket.assigns.page,
+      per_page: socket.assigns.per_page,
+      user_id: socket.assigns.user.id
+    )
     socket
-    |> assign(items:
-      Items.list_profile_items(
-        page: socket.assigns.page,
-        per_page: socket.assigns.per_page,
-        user_id: socket.assigns.user.id
-      )
+    |> assign(items: socket.assigns.items ++ new_items
     )
   end
 

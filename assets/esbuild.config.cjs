@@ -7,6 +7,7 @@ const { wasmLoader } = require("esbuild-plugin-wasm");
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
+const envFilePlugin = require('esbuild-envfile-plugin');
 // import { nodeExternalsPlugin } from "esbuild-node-externals";
 
 
@@ -42,6 +43,7 @@ function build(entryFile, outFile) {
 					return css
 				}
 			}),
+			envFilePlugin,
       wasmLoader()
 		], // optional
 		loader: { // built-in loaders: js, jsx, ts, tsx, css, json, text, base64, dataurl, file, binary

@@ -24,6 +24,7 @@ defmodule Metaitems.Accounts.User do
     has_many :followers, Follows,  foreign_key:  :followed_id
     has_many :items, Metaitems.Items.Item
     has_many :likes, Metaitems.Likes.Like
+    has_many :comments, Metaitems.Comments.Comment
 
     timestamps()
   end

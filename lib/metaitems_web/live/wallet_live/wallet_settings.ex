@@ -17,6 +17,7 @@ defmodule MetaitemsWeb.WalletLive.WalletSettings do
     wallet_settings_path = Routes.live_path(socket, __MODULE__)
     settings_path = Routes.live_path(socket, MetaitemsWeb.UserLive.Settings)
     pass_settings_path = Routes.live_path(socket, MetaitemsWeb.UserLive.PassSettings)
+    admin_settings_path = Routes.live_path(socket, MetaitemsWeb.AdminLive.PolicyImport)
 
     user = socket.assigns.current_user
     changeset = Accounts.change_user(user)
@@ -26,7 +27,9 @@ defmodule MetaitemsWeb.WalletLive.WalletSettings do
       |> assign(changeset: changeset)
       |> assign(settings_path: settings_path,
         pass_settings_path: pass_settings_path,
-        wallet_settings_path: wallet_settings_path)
+        wallet_settings_path: wallet_settings_path,
+        admin_settings_path: admin_settings_path
+        )
     }
   end
 

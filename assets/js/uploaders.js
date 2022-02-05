@@ -1,6 +1,6 @@
 // import onChange  from "./src/ipfs-uploader/client.js";
 import { Buffer } from "buffer";
-import {InfuraApiKey, InfuraProjectID} from './config.js'; 
+import {InfuraApiKey, InfuraProjectID} from 'env'; 
 
 // This is stupid confusing
 const INFURA_ID = InfuraProjectID;

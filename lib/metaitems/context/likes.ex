@@ -49,11 +49,11 @@ defmodule Metaitems.Context.Likes do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_like(attrs \\ %{}) do
-    %Like{}
-    |> Like.changeset(attrs)
-    |> Repo.insert()
-  end
+  # def create_like(attrs \\ %{}) do
+  #   %Like{}
+  #   |> Like.changeset(attrs)
+  #   |> Repo.insert()
+  # end
 
   def create_like(user, liked) do
     user = Ecto.build_assoc(user, :likes)
@@ -66,8 +66,9 @@ defmodule Metaitems.Context.Likes do
     |> Repo.transaction()
   end
 
+
   def unlike(user_id, liked) do
-    like = get_like(user_id, liked)
+    like = liked?(user_id, liked.id)
     update_total_likes = liked.__struct__ |> where(id: ^liked.id)
 
     Ecto.Multi.new()
@@ -128,5 +129,9 @@ defmodule Metaitems.Context.Likes do
   """
   def change_like(%Like{} = like, attrs \\ %{}) do
     Like.changeset(like, attrs)
+  end
+
+  def liked?(user_id, liked_id) do
+    Repo.get_by(Like, [user_id: user_id, liked_id: liked_id])
   end
 end

@@ -1,46 +1,38 @@
-<div class="hero min-h-screen">
-  <div class="flex-col justify-center hero-content lg:flex-row">
-    <div class="text-center lg:text-left">
-      <h1 class="mb-5 text-5xl font-bold">
-            Welcome to Meta Items
-          </h1> 
-      <p class="mb-5">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.
-          </p>
+<div id="top" class="bg-gradient-primary hero min-h-screen bg-fixed">
+  <div class="justify-end flex w-full">
+    <div class="w-8/12 hidden lg:flex text-center lg:text-left">
+      <%= render(MetaitemsWeb.PageView, "_hero_1.html", assigns) %>
     </div> 
-    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-black opacity-80">
-      <.form let={f} for={@changeset} action={Routes.user_registration_path(@socket, :create)} phx_trigger_action={@trigger_submit}>
-      <%= if @changeset.action do %>
-        <div class="alert alert-danger">
-          <p>Oops, something went wrong! Please check the errors below.</p>
-        </div>
-      <% end %>
-        <div class="card-body">
-          <div class="form-control">
+    <div class="mt-12 card flex-shrink-0 w-full lg:w-4/12 max-w-sm shadow-2xl ">
+      <.form let={f} for={@changeset} action={Routes.user_registration_path(@socket, :create)} phx-change="validate" phx-target={@myself} phx_trigger_action={@trigger_submit}>
+      
+        <div class="card-body space-y-4 opacity-100">
+          <div class="form-control space-y-2">
           <div class="form-control">
             <label class="label">
-              <%= label f, :username, class: "label-text text-md" %>
+              <%= label f, :username, class: "text-white label-text text-md" %>
             </label> 
-            <%= text_input f, :username, required: true, class: "input input-bordered", placeholder: "gg" %>
+            <%= text_input f, :username, required: true, class: "input input-bordered", placeholder: "gg", phx_debounce: "blur" %>
             <%= error_tag f, :username %>
           </div> 
             <label class="label">
-              <%= label f, :email, class: "label-text text-md" %>
+              <%= label f, :email, class: "text-white label-text text-md" %>
             </label> 
-            <%= email_input f, :email, required: true, class: "input input-bordered", placeholder: "gg@gmail.com" %>
+            <%= email_input f, :email, required: true, class: "input input-bordered", placeholder: "gg@gmail.com", phx_debounce: "blur" %>
             <%= error_tag f, :email %>
           </div> 
           <div class="form-control">
             <label class="label">
-              <%= label f, :password, class: "label-text text-md" %>
+              <%= label f, :password, class: "text-white label-text text-md" %>
             </label>
-            <%= password_input f, :password, required: true, class: "input input-bordered" %>
+            <%= password_input f, :password, required: true, class: "input input-bordered", phx_debounce: "blur" %>
             <%= error_tag f, :password %> 
-            <label class="label">
-              <%= link "Forgot your password?", to: Routes.user_reset_password_path(@socket, :new), class: "label-text-alt" %>
- 
-            </label>
           </div> 
+
+          <label class="hover:underline">
+            <%= link "Forgot your password?", to: Routes.user_reset_password_path(@socket, :new), class: "text-white hover:text-white label-text-alt hover:underline" %>
+          </label>
+
           <div class="form-control mt-6">
             <%= submit do %>
               <button class="btn btn-primary">
@@ -52,7 +44,7 @@
       </.form>
          
         <section class="shadow flex justify-center mx-auto p-6 ">
-         <p class="text-lg">Have an account? <%= link "Log in", to: Routes.user_session_path(@socket, :new), class: "hover:text-blue-500 hover:underline text-light-blue-500 font-semibold" %></p>
+         <p class="text-white text-lg">Have an account? <%= link "Log in", to: Routes.user_session_path(@socket, :new), class: "hover:text-blue-500 hover:underline text-light-blue-500 font-semibold" %></p>
         </section>
           
       </div>

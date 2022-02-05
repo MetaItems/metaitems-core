@@ -20,6 +20,7 @@ defmodule Metaitems.Items.Item do
     belongs_to :user, Metaitems.Accounts.User
 
     has_many :likes, Metaitems.Likes.Like, foreign_key: :liked_id
+    has_many :comments, Metaitems.Comments.Comment
 
     timestamps()
   end
