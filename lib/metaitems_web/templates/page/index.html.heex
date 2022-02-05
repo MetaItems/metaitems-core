@@ -1,15 +1,16 @@
-<!-- Hero Section -->
+<!-- Hero Section 
 <div id="top" class="bg-gradient-primary hero min-h-screen bg-fixed"> 
-  <%= render "_hero.html", assigns %>
+  <%#= render "_hero.html", assigns %>
 </div>
+-->
 
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="bg-gradient-primary py-24 ">
+<div class="py-24 ">
   <%= render "_features.html", assigns %>
 </div>
 
 <!-- Timeline -->
-<section id="roadmap" class="bg-base-200 py-8">
+<section id="roadmap" class="py-8">
     <%= render "_roadmap.html", assigns %>
 </section>
 
@@ -19,14 +20,10 @@
 </div>
 
 <!-- CTA 2 -->
-<div class="bg-gradient-primary">
+<div class="">
   <%= render "_cta.html", assigns %>
 </div>
 
-<!-- Mission -->
-<div>
-  <%= render "_mission.html", assigns %>
-</div>
 
 <div class="bg-gradient-neutral">
   <%= render "_footer.html", assigns %>

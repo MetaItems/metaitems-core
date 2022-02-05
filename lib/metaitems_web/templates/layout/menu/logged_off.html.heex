@@ -1,4 +1,4 @@
-<div class="navbar absolute h-16 top-0 inset-x-0 text-neutral-content">
+<div class="navbar text-white absolute h-16 top-0 inset-x-0">
   <div class="flex-none px-2 mx-2">
     <span class="text-lg font-bold">
             Meta Items
@@ -7,34 +7,30 @@
   <div class="flex-1 px-2 mx-2">
     <div class="items-stretch hidden lg:flex">
       
-      <%= live_redirect to: Routes.items_index_path(@conn, :index) do %>
-        <button class="btn btn-ghost btn-sm rounded-btn">
-            Home
-        </button>
-      <% end %>
+     
+      <a href="/" class="btn btn-ghost btn-sm rounded-btn">
+          Home
+      </a>
+   
       <a href="#roadmap" class="btn btn-ghost btn-sm rounded-btn">
               Roadmap
       </a> 
       <a href="#faq" class="btn btn-ghost btn-sm rounded-btn">
               FAQ
       </a> 
-      <a class="btn btn-ghost btn-sm rounded-btn">
-              Blog
+      <a href="https://discord.gg/EsgX8xZRgc" class="btn btn-ghost btn-sm rounded-btn">
+              Discord
             </a> 
     </div>
   </div> 
+  
   <div class="flex-none">
-    <a href="https://twitter.com/MetaItems" >
-      <button class="btn btn-md btn-ghost">
-        Twitter
+    
+    <%= link to: Routes.user_session_path(@conn, :new) do %>
+      <button class="btn px-8 mx-4  btn-outline hover:bg-primary rounded-xs text-white">
+        Sign in
       </button>
-    </a>
-  </div> 
-  <div class="flex-none">
-     <a href="https://discord.gg/EsgX8xZRgc" >
-      <button class="btn btn-md btn-ghost btn-outline btn-secondary">
-        Discord
-      </button>
-   </a>
+    <% end %>
+  
   </div>
 </div>

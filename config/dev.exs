@@ -25,12 +25,23 @@ config :metaitems, MetaitemsWeb.Endpoint,
   secret_key_base: "HaTWn834UsbLr+Aua8bJP+0pAPmNAQSpkS7d/PkiPIeKaz6heWvJE/ofWl9yitYN",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     node: [
-      "node_modules/vite/bin/vite.js",
-      cd: Path.expand("../assets", __DIR__)
+      # "node_modules/vite/bin/vite.js", # if using vite
+      # "NODE_PATH" => Enum.join([Path.expand("../deps", __DIR__),
+      #           Path.expand("../assets/node_modules", __DIR__)], ":")
+
+      "esbuild.config.cjs",
+      cd: Path.expand("../assets", __DIR__),
+
+      env: %{
+        "ESBUILD_LOG_LEVEL" => "silent",
+        "ESBUILD_WATCH" => "1",
+        "NODE_ENV" => "development"
+        }
     ]
   ]
+
 
   # Cardano Wallet Config
 config :cardanoex,
@@ -65,7 +76,7 @@ config :cardanoex,
 config :metaitems, MetaitemsWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/[^uploads].*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/metaitems_web/(live|views)/.*(ex)$",
       ~r"lib/metaitems_web/templates/.*(eex)$"

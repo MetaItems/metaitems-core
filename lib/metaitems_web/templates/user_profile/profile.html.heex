@@ -1,0 +1,181 @@
+<%= if @live_action == :following do %>
+  <%= live_modal MetaitemsWeb.UserLive.Profile.FollowingComponent,
+    id: @user.id || :following,
+    width:  "w-1/4",
+    current_user: @current_user,
+    following: @following,
+    return_to: Routes.user_profile_path(@socket, :index, @user.username) %>
+<% end %>
+
+<%= if @live_action == :followers do %>
+  <%= live_modal MetaitemsWeb.UserLive.Profile.FollowersComponent,
+    id: @user.id || :followers,
+    width:  "w-1/4",
+    current_user: @current_user,
+    followers: @followers,
+    return_to: Routes.user_profile_path(@socket, :index, @user.username) %>
+<% end %>
+
+<header class="flex items-center mx-auto justify-center px-10">
+  <!-- Profile Picture Section -->
+  <section class="flex-none">
+     
+      <%= if @user.avatar_url do %>
+          <%= img_tag @user.avatar_url, class: "w-40 h-40 rounded-full object-cover object-center" %>
+      <% else %>
+          <img class= "w-24 h-24 rounded-full object-cover object-center" src={"https://ui-avatars.com/api/?name=#{@user.username}"}>
+      <% end %>
+      
+  </section>
+  <!-- END Profile Picture Section -->
+
+  <!-- Profile Details Section -->
+  <section class="mt-4 flex flex-col">
+    <div class="flex px-3 pt-3">
+        <h1 class="truncate md:overflow-clip text-2xl md:text-2xl text-gray-500 mb-3 mr-10"><%= @user.username %></h1>
+        <span class="ml-11">
+    
+          <%= if @live_action == :edit_profile do %>
+            <%= live_patch "Edit Profile",
+              to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings),
+              class: "py-2 px-2 rounded font-semibold text-gray-50 bg-gradient-secondary " %>
+          <% end %>
+
+          <%= if @live_action == :follow_component do %>
+            <%= live_component MetaitemsWeb.UserLive.FollowComponent,
+              id:  @user.id,
+              user:  @user,
+              current_user:  @current_user %>
+          <% end %>
+
+          <%= if @live_action == :login_btn do %>
+            <%= link "Follow", to: Routes.user_session_path(@socket, :new), class: "py-2 px-5 border-none shadow rounded text-gray-50 hover:bg-blue-600 bg-blue-500" %>
+          <% end %>
+    
+        </span>
+    </div>
+
+    <div>
+      <ul class="flex p-3">
+          <li><b><%= @user.items_count %></b> NFTs</li>
+          <%= live_patch to: Routes.user_profile_path(@socket, :followers, @user.username) do %>
+            <li class="ml-11"><b><%= @user.followers_count %></b> Followers</li>
+          <% end %>
+          <%= live_patch to: Routes.user_profile_path(@socket, :following, @user.username) do %>
+            <li class="ml-11"><b><%= @user.following_count %></b> Following</li>
+          <% end %>
+      </ul>
+    </div>
+
+    <div class="p-3">
+      
+      <%= if @user.bio do %>
+        <p class="max-w-full break-words"><%= @user.bio %></p>
+      <% end %>
+      <%= if @user.website do %>
+        <%= link display_website_uri(@user.website),
+          to: @user.website,
+          target: "_blank", rel: "noreferrer",
+          class: "text-blue-700" %>
+      <% end %>
+    </div>
+  </section>
+  <!-- END Profile Details Section -->
+</header>
+
+<section class="flex-1 border-t-2 mt-5">
+  <ul class="flex justify-center text-center space-x-16">
+    <li class="pt-4 px-1 text-sm text-gray-600 border-t-2 border-black -mt-0.5">
+       Created
+    </li>
+    <li class="pt-4 px-1 text-sm text-gray-400">
+       On Sale
+    </li>
+    <li class="pt-4 px-1 text-sm text-gray-400">
+       Owned
+    </li>
+    <li class="pt-4 px-1 text-sm text-gray-400">
+       Saved
+    </li>
+    <li class="pt-4 px-1 text-sm text-gray-400">
+       Activity
+    </li>
+  </ul>
+</section>
+
+<div id="items" phx-update="append" class="mt-9 grid gap-4 grid-cols-4">
+    <%= for item <- @items do %>
+
+      <div class="card card-bordered card-compact shadow" id="item-{item.id}">
+        <div class="flex p-2 items-center">
+          <!-- Post header section -->
+          <%= live_redirect to: Routes.user_profile_path(@socket, :index, @user.username) do %>
+            <%= img_tag Metaitems.Uploaders.Avatar.get_thumb(@user.avatar_url), class: "w-8 h-8 rounded-full object-cover object-center" %>
+          <% end %>
+          <div class="ml-3">
+            <%= live_redirect @user.username,
+              to: Routes.user_profile_path(@socket, :index, @user.username),
+              class: "truncate font-bold text-sm text-gray-500 hover:underline" %>
+          </div>
+          <!-- End item header section -->
+        </div>
+        <!-- Post Image section -->
+  
+        <div>
+          <%= live_redirect img_tag(item.photo_url, class: "object-cover h-80 w-full"),
+                id: item.url_id,
+                to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, item.url_id) %>
+        </div>
+      
+        <!-- End Post Image section -->
+
+        <div class="w-full">
+          <!-- Action icons section -->
+          <div class="flex pl-4 pr-2 pt-1">
+            <%= live_redirect to: Routes.live_path(@socket, MetaitemsWeb.ItemLive.Show, item.url_id) do %>
+              <h2 class="text-xl font-bold text-gray-500 truncate"><%= item.name %></h2>
+            <% end %>
+          </div>
+          <!-- End Action icons section -->
+
+          <!-- Description section -->
+          <div>
+          
+          <%= live_redirect to: Routes.user_profile_path(@socket, :index, @user.username) do %>
+              <span class="ml-4 font-bold text-xs text-gray-500 hover:underline">@<%= @user.username %></span>
+            <% end %>
+
+          <button class="text-xs text-gray-500 font-bold focus:outline-none">&bull; <%= item.total_likes %> likes</button>
+          <span class="text-xs text-gray-500 font-bold focus:outline-none"> &bull; <%= Timex.from_now(item.inserted_at) %></span> 
+            
+          </div>
+          <!-- End Description Section -->
+        </div>
+
+        <div class="h-12">
+          <%= if item.description do %>
+            <!-- Description section -->
+            <div class="flex">
+              <div class="mt-1 px-4 w-8/12 h-12 overflow-hidden">
+                <span class="text-sm text-gray-700">
+                  <p class="text-xs leading-4"><%= item.description %></p>
+                </span>
+              </div>
+            </div>
+          <!-- End Description Section -->
+          <% end %>
+        </div>
+        <h6 class="px-4 py-2 mt-2 text-xs font-bold text-gray-500">EDITION OF: <%= item.quantity %></h6>
+      </div>
+     
+    <% end %>
+</div>
+
+ <div
+    id="profile-items-footer"
+    class="flex justify-center"
+    phx-hook="ProfileItemsScroll"
+    phx-update="append">
+  </div>
+
+  <h1 class="text-gray-200 py-4 flex justify-center text-xs">metaitems.io</h1>

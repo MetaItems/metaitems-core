@@ -1,8 +1,8 @@
 <%= if @current_user do %>
   <.live_component module={MetaitemsWeb.Layout.HeaderNavComponent} id="nav_bar" current_user={@current_user} />
 <% else %>
-  <%= if @current_uri_path !== "/" do %>
-    <.live_component module={MetaitemsWeb.Layout.HeaderNavComponent} id="nav_bar" current_user={@current_user} />
+  <%= if @live_action !== :root_path do %>
+    <.live_component module={MetaitemsWeb.Layout.HeaderNavOffComponent} id="nav_bar" current_user={@current_user} />
   <% end %>
 <% end %>
 

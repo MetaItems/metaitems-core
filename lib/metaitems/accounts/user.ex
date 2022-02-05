@@ -2,6 +2,9 @@ defmodule Metaitems.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Metaitems.Accounts.Follows
+
+  @derive {Inspect,  except:  [:password]}
   schema "users" do
     field :username, :string
     field :email, :string
@@ -9,11 +12,19 @@ defmodule Metaitems.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    field :avatar_url, :string, default: "/images/default-avatar.png"
+    field :avatar_url, :string, default: "/images/default-avatar.svg"
     field :bio, :string
     field :website, :string
     field :twitter, :string
     field :verified, :boolean, default: false
+    field :followers_count, :integer, default: 0
+    field :following_count, :integer, default: 0
+    field :items_count,  :integer,  default:  0
+    has_many :following, Follows,  foreign_key:  :follower_id
+    has_many :followers, Follows,  foreign_key:  :followed_id
+    has_many :items, Metaitems.Items.Item
+    has_many :likes, Metaitems.Likes.Like
+    has_many :comments, Metaitems.Comments.Comment
 
     timestamps()
   end
@@ -52,6 +63,8 @@ defmodule Metaitems.Accounts.User do
     |> validate_format(:username, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")
     |> unique_constraint(:username)
     |> unsafe_validate_unique(:username, Metaitems.Repo)
+    |> validate_website_schemes()
+    |> validate_website_authority()
     |> validate_email()
     |> validate_password(opts)
   end
@@ -163,4 +176,26 @@ defmodule Metaitems.Accounts.User do
       add_error(changeset, :current_password, "is not valid")
     end
   end
+
+  defp validate_website_schemes(changeset) do
+    validate_change(changeset, :website, fn :website, website ->
+      uri = URI.parse(website)
+      if uri.scheme, do: check_uri_scheme(uri.scheme), else: [website: "Enter a valid website"]
+    end)
+  end
+
+  defp validate_website_authority(changeset) do
+    validate_change(changeset, :website, fn :website, website ->
+      authority = URI.parse(website).authority
+      if String.match?(authority, ~r/^[a-zA-Z0-9.-]*$/) do
+        []
+      else
+        [website: "Enter a valid website"]
+      end
+    end)
+  end
+
+  defp check_uri_scheme(scheme) when scheme == "http", do: []
+  defp check_uri_scheme(scheme) when scheme == "https", do: []
+  defp check_uri_scheme(_scheme), do: [website: "Enter a valid website"]
 end

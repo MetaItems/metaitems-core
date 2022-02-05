@@ -21,7 +21,10 @@ defmodule MetaitemsWeb.Router do
     pipe_through :browser
 
     # get "/", PageController, :index
-    live "/", ItemsLive.Index, :index
+    live "/", ItemLive.Index, :index
+    live "/:username", UserLive.Profile, :index
+    live "/i/coming_soon", PageLive.ComingSoon, :index
+    # get "/i/coming_soon", PageController, :soon
   end
 
   # Other scopes may use custom stacks.
@@ -63,10 +66,13 @@ defmodule MetaitemsWeb.Router do
   scope "/", MetaitemsWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/register", UserRegistrationController, :new
-    post "/register", UserRegistrationController, :create
-    get "/login", UserSessionController, :new
-    post "/login", UserSessionController, :create
+    # live "/users/register", UserLive.RegistrationComponent, :create
+    get "/users/register", UserRegistrationController, :new
+    post "/users/register", UserRegistrationController, :create
+
+
+    get "/users/login", UserSessionController, :new
+    post "/users/login", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
@@ -82,6 +88,14 @@ defmodule MetaitemsWeb.Router do
 
     live "/accounts/edit", UserLive.Settings
     live "/accounts/password/change", UserLive.PassSettings
+    live "/:username/following", UserLive.Profile, :following
+    live "/:username/followers", UserLive.Profile, :followers
+
+    live "/i/new", ItemLive.New, :new
+
+    # Admin Only for now
+    live "/accounts/wallet/edit", WalletLive.WalletSettings
+    live "/accounts/admin/import_nfts", AdminLive.PolicyImport
   end
 
   scope "/", MetaitemsWeb do
@@ -92,5 +106,8 @@ defmodule MetaitemsWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    # Getting some crazy bug
+    live "/i/:id", ItemLive.Show
   end
 end

@@ -34,22 +34,27 @@ defmodule Metaitems.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
+      {:blockfrost, "~> 0.2"},
       {:cardanoex, "~> 0.6.0"},
       {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_react, "~> 0.4"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6"},
-      {:swoosh, "~> 1.3"},
+      {:phoenix_live_dashboard, "~> 0.6.2"},
+      {:swoosh, "~> 1.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:timex, "~> 3.7"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:mogrify, "~> 0.9.1"}
     ]
   end
 
@@ -66,7 +71,7 @@ defmodule Metaitems.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "cmd --cd assets NODE_ENV=production node scripts/build.js",
+        "cmd --cd assets NODE_ENV=production node esbuild.config.js --deploy",
         "phx.digest"
       ]
     ]

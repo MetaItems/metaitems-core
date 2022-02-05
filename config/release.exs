@@ -44,7 +44,6 @@ config :metaitems, Metaitems.Repo,
 #### DO NOT USE IN PRODUCTION !!!!!
 ######## WARNING!!! ###############
 ####### DO NOT USE #############
-# secret_key_base = "HOBTbevZ5owNa48L5rhgA4/tBqAdGs87CmdFHdQyDjXXrDm4+DxjcFPN9Y2aEOqG"
 
 config :metaitems, MetaitemsWeb.Endpoint, secret_key_base: secret_key_base
 # http: [port: {:system, "PORT"},

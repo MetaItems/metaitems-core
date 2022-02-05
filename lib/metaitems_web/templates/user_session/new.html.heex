@@ -1,5 +1,5 @@
-<div class="hero min-h-screen bg-base-200">
-  <div class="flex-col justify-center hero-content lg:flex-row">
+<div class="hero min-h-screen bg-gradient-primary">
+  <div class="text-white flex-col justify-center hero-content lg:flex-row">
      <div class="text-center lg:text-left">
       <h1 class="mb-5 text-5xl font-bold">
            Please Login
@@ -9,7 +9,7 @@
       </p>
     </div> 
     
-    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div class="text-black card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
       <%= if @error_message do %>
         <div class="alert alert-danger">
@@ -44,7 +44,8 @@
       </div>
       </.form>
         <p class="justify-center hero-content py-4">
-          <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+           <a href="/">Register</a> 
+          <%#= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
           <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
         </p>
     </div>

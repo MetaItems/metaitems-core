@@ -3,7 +3,8 @@ module.exports = {
     "../lib/**/*.eex",
     "../lib/**/*.heex",
     "../lib/**/*.leex",
-    "../lib/**/*_view.ex"
+    "../lib/**/*_view.ex",
+    '../js/**/*.js'
   ],
   options: {
     whitelist: [/phx/, /nprogress/]

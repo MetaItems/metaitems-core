@@ -1,21 +1,26 @@
-<div id="nav_bar" class="navbar shadow-lg text-neutral-content">
-  <div class="flex-none hidden lg:flex">
+<div id="nav_bar" class="z-50 navbar shadow-lg">
+  <div class="flex-none lg:flex">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">           
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>               
       </svg>
     </button>
   </div> 
-  <div class="flex-1 hidden px-2 mx-2 lg:flex">
+  <div class="flex-none hidden px-2 mx-2 lg:flex">
     <span class="text-lg font-bold">
-            <%= @current_user.email %>
-          </span>
+      <%= live_redirect to: Routes.item_index_path(@socket, :index) do %>
+          MetaItems
+      <% end %>
+
+      </span>
   </div> 
-  <div class="flex-1 lg:flex-none">
-    <div class="form-control">
-      <input type="text" placeholder="Search" class="input input-ghost">
+  <div class="flex-1 hidden lg:flex">
+    <div class="form-control items-stretch w-full">
+      <input type="text" placeholder="Search" class="bg-gray-100 input input-ghost w-full">
     </div>
-  </div> 
+  </div>
+    
+  
   <div class="flex-none">
     <button class="btn btn-square btn-ghost">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">             
@@ -23,20 +28,79 @@
       </svg>
     </button>
   </div> 
-  <div class="flex-none">
-    <%= link to: Routes.user_session_path(@socket, :delete), method: :delete do %>
-      <button class="btn btn-square btn-ghost"> 
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">     
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>                     
-          </svg>
-      </button>
+
+  <div class="flex-1 px-2 mx-2 items-end">
+    <div class="items-stretch hidden lg:flex">
+
+      <%= live_redirect to: Routes.page_coming_soon_path(@socket, :index)  do %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+          Marketplace
+        </div>
       <% end %>
-  </div> 
+
+      <%= live_redirect to: Routes.user_profile_path(@socket, :index, @current_user.username)  do %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+          Profile
+        </div>
+      <% end %>
+      
+      <%= live_redirect to: Routes.page_coming_soon_path(@socket, :index)  do %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+         Activity
+        </div>
+      <% end %>
+      
+      <%= live_redirect to: Routes.item_new_path(@socket, :new)  do  %>
+        <div class="btn btn-ghost btn-sm rounded-btn">
+        New
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="flex-none">
-    <div class="avatar">
-      <div class="rounded-full w-10 h-10 m-1">
+    <button class="btn btn-square btn-ghost"> 
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">     
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>                     
+        </svg>
+    </button>  
+  </div> 
+  
+
+  <div class="flex-none">
+    <button id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
+        Connect
+    </button>
+    <%#= live_react_component("Components.NamiConnect", [name: "connector"], id: "nami-connector") %>
+  </div> 
+
+
+  <div class="ml-4" phx-update="ignore">
+    <div x-data="{ dropdownMenu: false }" @click.outside="dropdownMenu = false" class="relative">
+      <%# <div class="indicator-item badge badge-xs badge-accent"></div> %>
+      <div @click="dropdownMenu = ! dropdownMenu" class="rounded-full w-12 h-12">
+          <%= if @current_user.avatar_url do %>
+            <img src={@current_user.avatar_url}>
+          <% else %>
+            <img src={"https://ui-avatars.com/api/?name=#{@current_user.username}"}>
+          <% end %>
+      </div>
+
+      <div x-show="dropdownMenu" class="z-0 absolute right-0 py-1 mt-1 bg-white rounded-lg shadow-xl w-44">
+        <%= live_redirect to: Routes.user_profile_path(@socket, :index, @current_user.username) do %>
+          <div class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 font-bold">
+            Profile
+          </div>
+        <% end %>
         <%= live_patch to: Routes.live_path(@socket, MetaitemsWeb.UserLive.Settings) do %>
-          <img src="https://i.pravatar.cc/500?img=32">
+          <div class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 font-bold">
+            Settings
+          </div>
+        <% end %>
+        <%= link to: Routes.user_session_path(@socket, :delete), method: :delete do %>
+          <div class="block px-4 py-2 text-sm text-gray-800 hover:bg-red-300 font-bold">
+            Logout
+          </div>
         <% end %>
       </div>
     </div>

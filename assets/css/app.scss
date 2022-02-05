@@ -4,3 +4,30 @@
 
 @import "custom_base";
 @import "custom_components";
+
+@layer components {
+  .user-profile-unfollow-btn {
+    @apply  py-1  px-2  text-red-500  border-2  rounded  font-semibold  hover:bg-gray-50
+  }
+
+  .user-profile-follow-btn {
+    @apply  py-1  px-5  border-none  shadow  rounded  text-gray-50  hover:bg-light-blue-600  bg-light-blue-500
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Styles for handling buttons click events */
+.while-submitting  {  display: none;  }
+
+.phx-click-loading  {
+  .while-submitting  {  display: inline;  }
+  .btns  {  display: none;  }
+}

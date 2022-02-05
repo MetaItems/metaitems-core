@@ -1,0 +1,6 @@
+// "deploy": "npm-run-all --parallel deploy-styles deploy-files",
+// "deploy-styles": "NODE_ENV=production tailwindcss -i css/app.css -o ../priv/static/assets/app.css --minify",
+// "deploy-files": "cpx 'static/**/*' ../priv/static",
+// "watch": "npm-run-all watch-styles watch-files",
+// "watch-styles": "tailwindcss --input=css/app.scss --output=../priv/static/assets/app.css --postcss --watch",
+// "watch-files": "cpx 'static/**/*' ../priv/static --watch"

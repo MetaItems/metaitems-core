@@ -1,10 +1,52 @@
-<%= if !@current_user do %>
-  <%= render(MetaitemsWeb.PageView, "index.html", assigns) %>
+<%= if @current_user do %>
+  <section class="mx-4 mt-8">
+    <h1 class="text-gray-500 my-5">Suggestions For You</h1>
+    <div class="grid gap-4 lg:grid-cols-4"> 
+        <%= for user <- @users do %>
+          <div class="flex items-center">
+            <!-- Post header section -->
+            <%= live_redirect to: Routes.user_profile_path(@socket, :index, user.username) do %>
+              <%= img_tag Metaitems.Uploaders.Avatar.get_thumb(user.avatar_url), class: "w-10 h-10 rounded-full object-cover object-center" %>
+            <% end %>
+            <div class="ml-3">
+              <%= live_redirect user.username,
+                to: Routes.user_profile_path(@socket, :index, user.username),
+                class: "truncate font-bold text-sm text-gray-500 hover:underline" %>
+              <h2 class="text-xs text-gray-500">Suggested for you</h2>
+            </div>
+            <span class="ml-auto">
+              <%= live_component MetaitemsWeb.UserLive.FollowComponent,
+                id: user.id,
+                user: user,
+                current_user: @current_user %>
+            </span>
+            <!-- End post header section -->
+          </div>
+        <% end %>
+    </div>
+  </section>
+  <section class="mx-4 mt-16">
+    <div id="user-feed" class="grid gap-4 lg:grid-cols-4" phx-update="append">
+      <%= for item <- @user_feed do %>
+          <%= live_component MetaitemsWeb.ItemLive.NewItemsFeedComponent,
+            item: item,
+            id: item.id,
+            current_user: @current_user %>
+      <% end %>
+    </div>
+  </section>
+
+  <div
+    id="profile-items-footer"
+    class="flex justify-center"
+    phx-hook="ProfileItemsScroll"
+    phx-update="append">
+  </div>
+
 <% else %>
-  <ul>
-    <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-      <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@socket, :home) %></li>
-    <% end %>
-  </ul>
+  <%= live_component MetaitemsWeb.UserLive.RegistrationComponent,
+    id: 1, changeset: @changeset, trigger_submit: @trigger_submit %>
+
+    <%= render(MetaitemsWeb.PageView, "index.html", assigns) %>
 <% end %>
 

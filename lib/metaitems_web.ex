@@ -53,6 +53,7 @@ defmodule MetaitemsWeb do
       import MetaitemsWeb.LiveHelpers
 
       alias Metaitems.Accounts.User
+      alias Metaitems.Context.Accounts
       @impl true
       def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
        with %User{id: ^id} <- socket.assigns.current_user do
@@ -66,12 +67,7 @@ defmodule MetaitemsWeb do
        end
       end
 
-      @impl true
-      def handle_params(_unsigned_params, uri, socket) do
-        {:noreply,
-          socket
-          |> assign(current_uri_path: URI.parse(uri).path)}
-      end
+
 
     end
   end
@@ -119,6 +115,9 @@ defmodule MetaitemsWeb do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+
+      # Import React LiveView functionality
+      import PhoenixLiveReact
 
       import MetaitemsWeb.ErrorHelpers
       import MetaitemsWeb.Gettext
