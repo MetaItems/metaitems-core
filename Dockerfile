@@ -26,17 +26,17 @@ RUN mix deps.compile
 
 # build assets
 # DEVELOPMENT ONLY
-COPY assets/package.json assets/package-lock.json ./assets/
-RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
+# COPY assets/package.json assets/package-lock.json ./assets/
+# RUN npm --prefix ./assets ci --progress=false --no-audit --loglevel=error
 #
-COPY priv priv
-COPY assets assets
+# COPY priv priv
+# COPY assets assets
 
 ENV NODE_ENV=production
 # Will skip this step for something more efficient
 # RUN npm install webpack --prefix ./assets
-RUN npm run deploy --prefix ./assets
-RUN npm prune --production --prefix ./assets
+# RUN npm run deploy --prefix ./assets
+# RUN npm prune --production --prefix ./assets
 # RUN npm run deploy --prefix ./assets
 
 RUN mix phx.digest
