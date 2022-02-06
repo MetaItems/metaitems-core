@@ -39,4 +39,5 @@ npm-debug.log
 erl_crash.dump
 phoenix-*.ez
 old_Dockerfile
+.env
 
