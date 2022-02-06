@@ -99,7 +99,7 @@ defmodule MetaitemsWeb.ItemLive.Index do
   end
 
   defp assign_user_feed(socket) do
-    current_feed = socket.assigns.user_feed |> IO.inspect
+    current_feed = socket.assigns.user_feed
     new_feed = Items.get_accounts_feed(socket.assigns.following_list, socket.assigns)
     socket |> assign(user_feed: current_feed ++ new_feed)
     # socket |> update(:user_feed, fn user_feed -> [new_feed | current_feed] end)
