@@ -51,7 +51,7 @@ COPY priv priv
 COPY assets assets
 
 # compile assets
-RUN mix assets.deploy
+# RUN mix assets.deploy # fix later for auto asset deploy to S3
 
 # Compile the release
 COPY lib lib
