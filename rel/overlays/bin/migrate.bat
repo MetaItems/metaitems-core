@@ -1,0 +1,1 @@
+call "%~dp0\metaitems" eval Metaitems.Release.migrate

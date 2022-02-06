@@ -71,7 +71,7 @@ defmodule Metaitems.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
-        "cmd --cd assets NODE_ENV=production node esbuild.config.js --deploy",
+        "cmd --cd assets NODE_ENV=production node esbuild.config.cjs --deploy",
         "phx.digest"
       ]
     ]
