@@ -87,3 +87,4 @@ COPY --from=builder --chown=nobody:root /app/_build/prod/rel/metaitems ./
 USER nobody
 
 CMD ["/app/bin/server"]
+
