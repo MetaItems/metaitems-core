@@ -21,8 +21,8 @@ defmodule Metaitems.Application do
       {Blockfrost, [
         # network: :cardano_mainnet,
         # name: CardanoMainNet,
-        network: :cardano_testnet,
-        name: CardanoTestNet,
+        network: :cardano_mainnet,
+        name: CardanoMainNet,
         api_key: System.get_env("CARDANO_API_KEY"),
         retry_enabled?: true,
         retry_max_attempts: 3

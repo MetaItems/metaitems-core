@@ -26,7 +26,7 @@
     </div>
   </section>
   <section class="mx-4 mt-16">
-    <div id="user-feed" class="grid gap-4 lg:grid-cols-4" phx-update="append">
+    <div id="user-feed" phx-update="append" class="grid gap-4 lg:grid-cols-4">
       <%= for item <- @user_feed do %>
           <%= live_component MetaitemsWeb.ItemLive.NewItemsFeedComponent,
             item: item,
@@ -39,10 +39,10 @@
   <div
     id="profile-items-footer"
     class="flex justify-center"
-    phx-hook="ProfileItemsScroll"
-    phx-update="append">
+    phx-hook="ProfileItemsScroll">
   </div>
-
+  
+ <h1 class="text-gray-200 py-4 flex justify-center text-xs">metaitems.io</h1>
 <% else %>
   <%= live_component MetaitemsWeb.UserLive.RegistrationComponent,
     id: 1, changeset: @changeset, trigger_submit: @trigger_submit %>

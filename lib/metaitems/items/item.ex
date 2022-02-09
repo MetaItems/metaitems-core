@@ -7,7 +7,6 @@ defmodule Metaitems.Items.Item do
     field :name, :string
     field :description, :string
     field :photo_url, :string
-    field :price, :decimal, default: 0.01
     field :quantity, :integer
 
     field :review_score, :integer, default: 0
@@ -22,13 +21,26 @@ defmodule Metaitems.Items.Item do
     has_many :likes, Metaitems.Likes.Like, foreign_key: :liked_id
     has_many :comments, Metaitems.Comments.Comment
 
+    ###############
+    field :thumbnail_url, :string
+    field :asset_id, :string
+    field :policy_id, :string
+    field :fingerprint, :string
+    field :metadata, :map, default: %{}
+    field :asset_data, :map, default: %{}
+    field :asset_history, :map, default: %{}
+    field :asset_transactions, :map, default: %{}
+    field :asset_addresses, :map, default: %{}
+
+
+
     timestamps()
   end
 
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:url_id, :name, :description, :photo_url, :type, :price, :unlock_content, :royalties, :quantity])
+    |> cast(attrs, [:url_id, :name, :description, :photo_url, :type, :unlock_content, :royalties, :quantity])
     |> validate_required([:url_id, :name, :photo_url])
   end
 end

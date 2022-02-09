@@ -7,7 +7,7 @@
     current_uri_path: @current_uri_path %>
 
   <section class="flex flex-col mx-6 w-full">
-    <.form let={f} for={@changeset} phx-submit="save">
+    <.form let={f} for={:params} phx-submit="get_assets">
     <div class="p-10 bg-base-200">
       <div class="form-control space-y-4">
         
@@ -19,8 +19,13 @@
               <%= error_tag f, :policy_id %>
             </div>
           </div>
-          <button class="ml-4 btn btn-primary" 
-          phx-click="get_assets">
+          <div class="pl-8">
+            <%= number_input f, :qty, class: "input", placeholder: "Qty: ", phx_debounce: "blur", required: true, class: "w-12 rounded p-1 text-semibold text-gray-600 focus:ring-transparent border border-gray-400 focus:border-black" %>
+            <div class="text-yellow-300">
+              <%= error_tag f, :qty %>
+            </div>
+          </div>
+          <button class="ml-4 btn btn-primary">
           Import</button>
         </div>
          
