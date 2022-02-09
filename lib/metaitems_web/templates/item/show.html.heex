@@ -1,8 +1,18 @@
 <section class="flex-1 lg:flex">
   <!-- Item Image section -->
-  <%= img_tag @item.photo_url,
-          class: "w-full lg:w-3/5 object-contain h-full" %>
+  <%#= img_tag @item.photo_url, class: "w-full lg:w-3/5 object-contain h-full" %>
   <!-- End Item Image section -->
+
+  
+    <%= if URI.parse(@item.photo_url).scheme == "ipfs"  do %>
+    <% link = String.replace_prefix(@item.photo_url, "ipfs://", "https://ipfs.io/ipfs/") 
+    %>
+    <img src={link} alt="" class="w-full lg:w-3/5 object-contain h-full">
+    <% else %>
+      <img src={@item.photo_url} alt="" class="w-full lg:w-3/5 object-contain h-full">
+    <% end %>    
+
+
 
   <div class="w-full lg:w-2/5 border-2 h-full">
     <div class="flex p-4 items-center border-b-2">

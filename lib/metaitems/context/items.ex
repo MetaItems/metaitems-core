@@ -116,7 +116,7 @@ defmodule Metaitems.Context.Items do
   """
   def list_profile_items(page: page, per_page: per_page, user_id: user_id) do
     Item
-    |> select([i], map(i, [:url_id, :photo_url, :name, :description, :quantity, :total_likes, :inserted_at]))
+    |> select([i], map(i, [:id, :url_id, :photo_url, :name, :description, :quantity, :total_likes, :inserted_at]))
     |> where(user_id: ^user_id)
     |> limit(^per_page)
     |> offset(^((page - 1) * per_page))

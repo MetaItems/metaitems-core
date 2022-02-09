@@ -27,16 +27,26 @@ Hooks.NamiConnectWallet = {
   mounted(){
     // `upload` iterates through all files selected and invokes a helper function called `retrieveNewURL`.
     document.getElementById('nami-connect-wallet').addEventListener('click', function(e) {
-      t();   
+      // t();  
+      // let cardano = window.cardano.isEnabled() 
+      console.log(cardano);
       // connect()
       // .then(getAddress());
-      getAddress();
-      
-
+      // const address = getAddress()
+      // let event = new CustomEvent('get-address', {
+      //   detail: {
+      //     address: address
+      //   }
+      // });
+      // this.el.dispatchEvent(event);
     });
   },
   reconnected(){ this.pending = this.page() },
-  updated(){ this.pending = this.page() }
+  updated(){ 
+
+    this.pending = this.page() 
+   
+  }
 }
 
 export default Hooks

@@ -22,8 +22,9 @@ defmodule MetaitemsWeb.ItemLive.Index do
       |> assign(trigger_submit: false)
       # main page assigns
       |> assign(user_feed: [])
-      |> assign(page: 1, per_page: 8),
-      temporary_assigns: [user_feeds: []]
+      |> assign(page: 1, per_page: 16),
+      # |> assign_items(),
+      temporary_assigns: [user_feed: []]
       # this temporary assign is not working,
       # it just replaces on mount...???
     }
@@ -101,7 +102,7 @@ defmodule MetaitemsWeb.ItemLive.Index do
   defp assign_user_feed(socket) do
     current_feed = socket.assigns.user_feed
     new_feed = Items.get_accounts_feed(socket.assigns.following_list, socket.assigns)
-    socket |> assign(user_feed: current_feed ++ new_feed)
-    # socket |> update(:user_feed, fn user_feed -> [new_feed | current_feed] end)
+    socket |> assign(user_feed: new_feed)
+    # socket |> update(:user_feed, fn items -> current_feed ++ new_feed  end)
   end
 end

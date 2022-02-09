@@ -116,8 +116,6 @@ defmodule MetaitemsWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      # Import React LiveView functionality
-      import PhoenixLiveReact
 
       import MetaitemsWeb.ErrorHelpers
       import MetaitemsWeb.Gettext

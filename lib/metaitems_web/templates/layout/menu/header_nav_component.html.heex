@@ -68,9 +68,14 @@
   
 
   <div class="flex-none">
-    <button id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
+    <div id="nami-connect-wallet" phx-update="ignore" phx-hook="NamiConnectWallet" class="btn btn-outline"> 
+       <div x-data="{address: ''}"
+            x-on:get-address="address = $event.detail.address">
         Connect
-    </button>
+       </div>
+       
+    
+    </div>
     <%#= live_react_component("Components.NamiConnect", [name: "connector"], id: "nami-connector") %>
   </div> 
 
@@ -86,7 +91,7 @@
           <% end %>
       </div>
 
-      <div x-show="dropdownMenu" class="z-0 absolute right-0 py-1 mt-1 bg-white rounded-lg shadow-xl w-44">
+      <div x-show="dropdownMenu" class="z-50 absolute right-0 py-1 mt-1 bg-white rounded-lg shadow-xl w-44">
         <%= live_redirect to: Routes.user_profile_path(@socket, :index, @current_user.username) do %>
           <div class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 font-bold">
             Profile

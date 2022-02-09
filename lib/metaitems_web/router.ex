@@ -95,7 +95,7 @@ defmodule MetaitemsWeb.Router do
 
     # Admin Only for now
     live "/accounts/wallet/edit", WalletLive.WalletSettings
-    live "/accounts/admin/import_nfts", AdminLive.PolicyImport
+    live "/accounts/notsosecureplace/import_nfts", AdminLive.PolicyImport
   end
 
   scope "/", MetaitemsWeb do
